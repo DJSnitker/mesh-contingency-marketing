@@ -280,6 +280,10 @@ approve = {{ '{' }} permission = <span class="s">"admin"</span> {{ '}' }}</code>
         <a class="btn" [href]="wiki" target="_blank" rel="noopener">Get started <app-icon name="arrow" /></a>
         <a class="btn btn-ghost" [href]="repo" target="_blank" rel="noopener"><app-icon name="github" /> GitHub</a>
       </div>
+      <p class="contact">
+        Want more information? Email
+        <a [href]="'mailto:' + email">{{ email }}</a>
+      </p>
     </div>
   </section>
 </main>
@@ -291,6 +295,7 @@ approve = {{ '{' }} permission = <span class="s">"admin"</span> {{ '}' }}</code>
       <a [href]="repo" target="_blank" rel="noopener">GitHub</a>
       <a [href]="wiki" target="_blank" rel="noopener">Wiki</a>
       <a [href]="meshcore" target="_blank" rel="noopener">MeshCore</a>
+      <a [href]="'mailto:' + email">Contact</a>
     </nav>
   </div>
 </footer>

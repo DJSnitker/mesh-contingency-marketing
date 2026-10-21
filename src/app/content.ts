@@ -3,6 +3,7 @@
 export const REPO_URL = 'https://github.com/DJSnitker/mesh-contingency';
 export const WIKI_URL = `${REPO_URL}/wiki`;
 export const MESHCORE_URL = 'https://github.com/meshcore-dev/MeshCore';
+export const CONTACT_EMAIL = 'information@meshcontingency.com';
 
 export type Level = 'anyone' | 'users' | 'admins';
 

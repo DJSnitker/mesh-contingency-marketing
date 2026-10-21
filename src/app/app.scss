@@ -799,6 +799,16 @@ h1 {
   .cta {
     justify-content: center;
   }
+
+  .contact {
+    margin-top: 28px;
+    font-size: 1rem;
+
+    a {
+      color: var(--text);
+      font-weight: 600;
+    }
+  }
 }
 
 // Footer

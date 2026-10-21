@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { ChatDemo } from './chat-demo';
 import { CommandExplorer } from './command-explorer';
 import {
+  CONTACT_EMAIL,
   DEMO,
   FEATURES,
   GUIDES,
@@ -24,6 +25,7 @@ export class App {
   protected readonly repo = REPO_URL;
   protected readonly wiki = WIKI_URL;
   protected readonly meshcore = MESHCORE_URL;
+  protected readonly email = CONTACT_EMAIL;
   protected readonly demo = DEMO;
   protected readonly sealedDemo = SEALED_DEMO;
   protected readonly features = FEATURES;
