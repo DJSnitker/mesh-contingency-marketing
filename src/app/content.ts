@@ -43,6 +43,7 @@ export const COMMANDS: Command[] = [
   { name: 'setpass', usage: 'setpass <passphrase>', level: 'users', description: 'Seal your messages with a passphrase' },
   { name: 'setqm', usage: 'setqm <address>', level: 'users', description: 'Set your qm address; alone, show it' },
   { name: 'status', usage: 'status <name or key>', level: 'anyone', description: "See someone's last check-in" },
+  { name: 'testalert', usage: 'testalert', level: 'admins', description: 'Post the test message to the alert channel now' },
   { name: 'users', usage: 'users [page]', level: 'admins', description: 'List the users and what each has set' },
   { name: 'verse', usage: 'verse [book chapter:verse[-verse]]', level: 'anyone', description: 'A Bible verse, or the verse of the day' },
   { name: 'whoami', usage: 'whoami', level: 'users', description: 'What the node knows about you' },
@@ -61,7 +62,7 @@ export const FEATURES: Feature[] = [
   {
     icon: 'weather',
     title: 'Weather & alerts',
-    body: 'Current conditions and active alerts for any US zipcode, straight from the National Weather Service. The node can post new alerts for the counties you watch to a public channel by itself.',
+    body: 'Current conditions and active alerts for any US zipcode, straight from the National Weather Service. The node can post new alerts for the counties you watch to a public channel by itself, with a weekly test so people know it works.',
     sample: 'wx 79601',
   },
   {
