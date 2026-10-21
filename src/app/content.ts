@@ -17,7 +17,8 @@ export interface Command {
 export const COMMANDS: Command[] = [
   { name: 'addgroup', usage: 'addgroup <address>', level: 'users', description: 'Add an address to your emailall group; alone, list it' },
   { name: 'advert', usage: 'advert [flood]', level: 'admins', description: 'Make the radio advertise itself' },
-  { name: 'alert', usage: 'alert <zipcode>', level: 'admins', description: 'Post weather alerts to #contingency-wx' },
+  { name: 'alert', usage: 'alert <message>', level: 'admins', description: 'Post a message to the alert channel, #contingency-wx' },
+  { name: 'alertmap', usage: 'alertmap [county, ST]', level: 'admins', description: 'Look up the NWS codes of the watched counties again' },
   { name: 'approve', usage: 'approve [name or key]', level: 'admins', description: 'Approve a join request; alone, list them' },
   { name: 'cleargroup', usage: 'cleargroup', level: 'users', description: 'Empty your emailall group' },
   { name: 'clearinbox', usage: 'clearinbox [all]', level: 'users', description: "Delete the messages you've read, or all of them" },
@@ -60,7 +61,7 @@ export const FEATURES: Feature[] = [
   {
     icon: 'weather',
     title: 'Weather & alerts',
-    body: 'Current conditions and active alerts for any US zipcode, straight from the National Weather Service. Admins can post alerts to a public channel.',
+    body: 'Current conditions and active alerts for any US zipcode, straight from the National Weather Service. The node can post new alerts for the counties you watch to a public channel by itself.',
     sample: 'wx 79601',
   },
   {
