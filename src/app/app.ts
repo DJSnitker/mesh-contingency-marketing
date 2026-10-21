@@ -39,6 +39,7 @@ export class App {
     { href: '#privacy', label: 'Privacy' },
     { href: '#commands', label: 'Commands' },
     { href: '#run', label: 'Run a node' },
+    { href: `mailto:${CONTACT_EMAIL}`, label: 'Contact' },
   ];
 
   protected readonly menuOpen = signal(false);
