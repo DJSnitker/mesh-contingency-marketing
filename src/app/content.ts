@@ -20,9 +20,11 @@ export const COMMANDS: Command[] = [
   { name: 'alert', usage: 'alert <message>', level: 'admins', description: 'Post a message to the alert channel, #contingency-wx' },
   { name: 'alertmap', usage: 'alertmap [county, ST]', level: 'admins', description: 'Look up the NWS codes of the watched counties again' },
   { name: 'approve', usage: 'approve [name or key]', level: 'admins', description: 'Approve a join request; alone, list them' },
+  { name: 'checkins', usage: 'checkins [page <n>]', level: 'admins', description: "Roll call: everyone's check-in, or missing" },
   { name: 'cleargroup', usage: 'cleargroup', level: 'users', description: 'Empty your emailall group' },
   { name: 'clearinbox', usage: 'clearinbox [all]', level: 'users', description: "Delete the messages you've read, or all of them" },
   { name: 'clearstatus', usage: 'clearstatus', level: 'admins', description: 'Delete every check-in' },
+  { name: 'comm', usage: 'comm <message>', level: 'admins', description: 'Post a message to the communications channel, #contingency-comm' },
   { name: 'contacts', usage: 'contacts [name or key] [page]', level: 'admins', description: "List the radio's contacts" },
   { name: 'deny', usage: 'deny <name or key>', level: 'admins', description: 'Turn down a join request' },
   { name: 'email', usage: 'email <address> <message>', level: 'users', description: 'Email any address' },
@@ -68,7 +70,7 @@ export const FEATURES: Feature[] = [
   {
     icon: 'check',
     title: 'Check-ins',
-    body: "Tell everyone you're ok, with a short status. Anyone can look up anyone's last check-in by name.",
+    body: "Tell everyone you're ok, with a short status. Anyone can look up anyone's last check-in by name, and admins get a roll call of who's checked in and who's missing.",
     sample: 'ok at the shelter, all 4 fine',
   },
   {
@@ -86,7 +88,7 @@ export const FEATURES: Feature[] = [
   {
     icon: 'mail',
     title: 'Email off the mesh',
-    body: 'Reach family who are off the mesh: one preset contact, a group of up to 10, or any address.',
+    body: "Reach family who are off the mesh: one preset contact, a group of up to 10, or any address. If an email can't go out, the reply says why, so you know to send it again.",
     sample: 'qm made it home safe',
   },
   {
@@ -173,7 +175,7 @@ export const GUIDES: Guide[] = [
   {
     icon: 'shield',
     title: 'Admin Guide',
-    body: "Adding and managing users, checking the node's health, history and backups, adverts, weather alerts, fixing problems.",
+    body: "Adding and managing users, checking the node's health, history and backups, adverts, weather alerts, news and roll calls, fixing problems.",
     url: `${WIKI_URL}/Admin-Guide`,
   },
   {
