@@ -45,6 +45,7 @@ export const COMMANDS: Command[] = [
   { name: 'remove', usage: 'remove <name or key>', level: 'admins', description: 'Remove a user and their messages' },
   { name: 'resetpass', usage: 'resetpass <name or key>', level: 'admins', description: "Clear a user's forgotten passphrase" },
   { name: 'roster', usage: 'roster', level: 'admins', description: 'Who has messaged the node since it started' },
+  { name: 'setemail', usage: 'setemail <name or key> qm [address] group [address ...]', level: 'admins', description: "Set a user's qm address and emailall group; a part with no address clears it" },
   { name: 'setpass', usage: 'setpass <passphrase>', level: 'users', description: 'Seal your messages with a passphrase' },
   { name: 'setqm', usage: 'setqm <address>', level: 'users', description: 'Set your qm address; alone, show it' },
   { name: 'status', usage: 'status <name or key>', level: 'anyone', description: "See someone's last check-in" },
@@ -94,7 +95,7 @@ export const TOUR: TourStop[] = [
     icon: 'users',
     label: 'Look after people',
     title: 'Your users, their check-ins, their mail',
-    body: "Approve or deny join requests, look anyone up with Whois, reset a forgotten passphrase or remove a user. See who has checked in and who hasn't, and clear the roll call after an event. See who has messages waiting, from whom, read or sealed, never what they say.",
+    body: "Approve or deny join requests, look anyone up with Whois, set someone's qm address and email group for them, reset a forgotten passphrase or remove a user. See who has checked in and who hasn't, and clear the roll call after an event. See who has messages waiting, from whom, read or sealed, never what they say.",
     shots: [
       { page: 'Users', src: 'console/users.png', alt: 'The Users page: a join request with Approve and Deny, and each user with Whois, Reset passphrase and Remove' },
       { page: 'Check-ins', src: 'console/checkins.png', alt: "The Check-ins page: who has checked in, newest first, and who hasn't" },
