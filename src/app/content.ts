@@ -53,7 +53,7 @@ export const COMMANDS: Command[] = [
   { name: 'verse', usage: 'verse [book chapter:verse[-verse]]', level: 'anyone', description: 'A Bible verse, or the verse of the day' },
   { name: 'whoami', usage: 'whoami', level: 'users', description: 'What the node knows about you' },
   { name: 'whois', usage: 'whois <name or key>', level: 'admins', description: 'What the node knows about a user' },
-  { name: 'wx', usage: 'wx <zipcode>', level: 'anyone', description: 'Weather and alerts for a US zipcode' },
+  { name: 'wx', usage: 'wx <zipcode | county, ST>', level: 'anyone', description: 'Weather and alerts for a US zipcode or county' },
 ];
 
 export interface Exchange {
@@ -157,12 +157,12 @@ export const FEATURES: Feature[] = [
   {
     icon: 'weather',
     title: 'Weather & alerts',
-    body: 'Current conditions and active alerts for any US zipcode, straight from the National Weather Service. The node posts new alerts for the counties you watch to #contingency-wx by itself, with a weekly test so people know it works.',
+    body: 'Current conditions and active alerts for any US zipcode or county, straight from the National Weather Service. The node posts new alerts for the counties you watch to #contingency-wx by itself, with a weekly test so people know it works.',
     demo: [
       { from: 'me', text: 'help wx' },
-      { from: 'node', text: 'wx <zipcode> - Weather, precipitation and alerts for a US zipcode' },
-      { from: 'me', text: 'wx 79601' },
-      { from: 'node', text: '79601 Mostly Cloudy, 20% precip 6h | 82F E14mph G18' },
+      { from: 'node', text: 'wx <zipcode | county, ST> - Weather, precipitation and alerts for a US zipcode or county' },
+      { from: 'me', text: 'wx Taylor, TX' },
+      { from: 'node', text: 'Taylor, TX Clear, 0% precip 6h | 81F S11mph' },
     ],
   },
   {
