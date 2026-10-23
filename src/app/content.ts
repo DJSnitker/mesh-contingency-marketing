@@ -45,6 +45,7 @@ export const COMMANDS: Command[] = [
   { name: 'remove', usage: 'remove <name or key>', level: 'admins', description: 'Remove a user and their messages' },
   { name: 'resetpass', usage: 'resetpass <name or key>', level: 'admins', description: "Clear a user's forgotten passphrase" },
   { name: 'roster', usage: 'roster', level: 'admins', description: 'Who has messaged the node since it started' },
+  { name: 'setemail', usage: 'setemail <name or key> qm [address] group [address ...]', level: 'admins', description: "Set a user's qm address and emailall group; a part with no address clears it" },
   { name: 'setpass', usage: 'setpass <passphrase>', level: 'users', description: 'Seal your messages with a passphrase' },
   { name: 'setqm', usage: 'setqm <address>', level: 'users', description: 'Set your qm address; alone, show it' },
   { name: 'status', usage: 'status <name or key>', level: 'anyone', description: "See someone's last check-in" },
@@ -53,7 +54,7 @@ export const COMMANDS: Command[] = [
   { name: 'verse', usage: 'verse [book chapter:verse[-verse]]', level: 'anyone', description: 'A Bible verse, or the verse of the day' },
   { name: 'whoami', usage: 'whoami', level: 'users', description: 'What the node knows about you' },
   { name: 'whois', usage: 'whois <name or key>', level: 'admins', description: 'What the node knows about a user' },
-  { name: 'wx', usage: 'wx <zipcode>', level: 'anyone', description: 'Weather and alerts for a US zipcode' },
+  { name: 'wx', usage: 'wx <zipcode | county, ST>', level: 'anyone', description: 'Weather and alerts for a US zipcode or county' },
 ];
 
 export interface Exchange {
@@ -94,7 +95,7 @@ export const TOUR: TourStop[] = [
     icon: 'users',
     label: 'Look after people',
     title: 'Your users, their check-ins, their mail',
-    body: "Approve or deny join requests, look anyone up with Whois, reset a forgotten passphrase or remove a user. See who has checked in and who hasn't, and clear the roll call after an event. See who has messages waiting, from whom, read or sealed, never what they say.",
+    body: "Approve or deny join requests, look anyone up with Whois, set someone's qm address and email group for them, reset a forgotten passphrase or remove a user. See who has checked in and who hasn't, and clear the roll call after an event. See who has messages waiting, from whom, read or sealed, never what they say.",
     shots: [
       { page: 'Users', src: 'console/users.png', alt: 'The Users page: a join request with Approve and Deny, and each user with Whois, Reset passphrase and Remove' },
       { page: 'Check-ins', src: 'console/checkins.png', alt: "The Check-ins page: who has checked in, newest first, and who hasn't" },
@@ -157,12 +158,12 @@ export const FEATURES: Feature[] = [
   {
     icon: 'weather',
     title: 'Weather & alerts',
-    body: 'Current conditions and active alerts for any US zipcode, straight from the National Weather Service. The node posts new alerts for the counties you watch to #contingency-wx by itself, with a weekly test so people know it works.',
+    body: 'Current conditions and active alerts for any US zipcode or county, straight from the National Weather Service. The node posts new alerts for the counties you watch to #contingency-wx by itself, with a weekly test so people know it works.',
     demo: [
       { from: 'me', text: 'help wx' },
-      { from: 'node', text: 'wx <zipcode> - Weather, precipitation and alerts for a US zipcode' },
-      { from: 'me', text: 'wx 79601' },
-      { from: 'node', text: '79601 Mostly Cloudy, 20% precip 6h | 82F E14mph G18' },
+      { from: 'node', text: 'wx <zipcode | county, ST> - Weather, precipitation and alerts for a US zipcode or county' },
+      { from: 'me', text: 'wx Taylor, TX' },
+      { from: 'node', text: 'Taylor, TX Clear, 0% precip 6h | 81F S11mph' },
     ],
   },
   {
