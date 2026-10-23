@@ -1,0 +1,171 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+// Every slide sits in the same cell, so the stage keeps the tallest one's
+// height and nothing jumps as they change.
+.stage {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  min-height: 440px;
+
+  @media (max-width: 560px) {
+    min-height: 290px;
+  }
+}
+
+.slide {
+  grid-area: 1 / 1;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px) scale(0.99);
+  transition: opacity 0.45s, transform 0.45s, visibility 0s 0.45s;
+
+  &.on {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: opacity 0.45s, transform 0.45s, visibility 0s;
+  }
+
+  &.radio {
+    max-width: 380px;
+  }
+}
+
+.caption {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  align-items: center;
+  margin-top: 20px;
+
+  strong {
+    font-family: var(--display);
+    font-size: 1.35rem;
+    text-transform: uppercase;
+    line-height: 1.1;
+  }
+}
+
+.kind {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border: 1px solid rgb(255 95 31 / 45%);
+  border-radius: 99px;
+  background: rgb(255 95 31 / 10%);
+  color: var(--orange);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+
+  app-icon {
+    font-size: 0.65rem;
+  }
+
+  &.radio {
+    border-color: rgb(56 189 248 / 45%);
+    background: rgb(56 189 248 / 10%);
+    color: var(--sky);
+  }
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.round {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: rgb(255 255 255 / 3%);
+  color: var(--text);
+  cursor: pointer;
+
+  &:hover {
+    border-color: rgb(242 245 248 / 30%);
+  }
+
+  app-icon {
+    font-size: 0.6rem;
+  }
+
+  .flip {
+    transform: scaleX(-1);
+  }
+}
+
+.dots {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  gap: 6px;
+  min-width: 0;
+
+  button {
+    position: relative;
+    flex: 1;
+    max-width: 44px;
+    height: 24px;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+
+    // The visible bar; the button is taller so it's easy to hit.
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 10px 0;
+      border-radius: 2px;
+      background: rgb(255 95 31 / 25%);
+    }
+
+    &.radio::before {
+      background: rgb(56 189 248 / 25%);
+    }
+
+    // The current slide stands out even with no progress bar (reduced motion).
+    &.on::before {
+      background: rgb(255 95 31 / 45%);
+    }
+
+    &.on.radio::before {
+      background: rgb(56 189 248 / 45%);
+    }
+  }
+
+  .fill {
+    position: absolute;
+    inset: 10px auto 10px 0;
+    border-radius: 2px;
+    background: var(--orange);
+    animation: fill linear forwards;
+
+    &.paused {
+      animation-play-state: paused;
+    }
+  }
+
+  .radio .fill {
+    background: var(--sky);
+  }
+}
+
+@keyframes fill {
+  from { width: 0; }
+  to { width: 100%; }
+}
