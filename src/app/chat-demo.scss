@@ -132,4 +132,8 @@
   .log {
     height: 320px;
   }
+
+  :host(.compact) .log {
+    height: 220px;
+  }
 }

@@ -1,0 +1,59 @@
+:host {
+  display: block;
+}
+
+.panel {
+  display: grid;
+  grid-template-columns: 1fr 1.9fr;
+  gap: 48px;
+  align-items: center;
+  margin-top: 28px;
+
+  @media (max-width: 960px) {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+.copy {
+  h3 {
+    margin: 0;
+    font-family: var(--display);
+    font-size: 1.8rem;
+    line-height: 1.05;
+    text-transform: uppercase;
+  }
+
+  p {
+    margin: 14px 0 0;
+    color: var(--muted);
+  }
+}
+
+.pages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 22px;
+
+  button {
+    padding: 6px 12px;
+    border: 1px solid var(--line);
+    border-radius: 99px;
+    background: none;
+    color: var(--muted);
+    font: inherit;
+    font-size: 0.85rem;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--text);
+    }
+
+    &[aria-pressed='true'] {
+      border-color: var(--sky);
+      background: rgb(56 189 248 / 12%);
+      color: var(--text);
+    }
+  }
+}

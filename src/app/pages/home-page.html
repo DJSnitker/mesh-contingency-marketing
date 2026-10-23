@@ -1,0 +1,115 @@
+<section class="hero">
+  <svg class="mesh-bg" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g class="links">
+      <path d="M80 140 L260 90 L420 210 L300 330 L80 140 M260 90 L520 60 L420 210 L640 260 M300 330 L180 480 L380 560 L300 330 M380 560 L560 470 L640 260 M560 470 L760 560 L900 420 L640 260 L860 160 L1040 110 L1120 300 L900 420 M860 160 L1120 300 M760 560 L1000 620 L1120 300 M520 60 L860 160" />
+    </g>
+    <g class="nodes">
+      <circle cx="80" cy="140" r="4" /><circle cx="260" cy="90" r="5" /><circle cx="420" cy="210" r="4" />
+      <circle cx="300" cy="330" r="5" /><circle cx="520" cy="60" r="4" /><circle cx="180" cy="480" r="4" />
+      <circle cx="380" cy="560" r="5" /><circle cx="560" cy="470" r="4" /><circle cx="760" cy="560" r="4" />
+      <circle cx="900" cy="420" r="5" /><circle cx="860" cy="160" r="4" />
+      <circle cx="1120" cy="300" r="4" /><circle cx="1000" cy="620" r="4" />
+    </g>
+    <g class="hub">
+      <circle class="ping" cx="1040" cy="110" r="10" />
+      <circle class="ping p2" cx="1040" cy="110" r="10" />
+      <circle cx="1040" cy="110" r="8" />
+    </g>
+  </svg>
+
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow"><span class="pulse"></span> New in 0.7.0: the web console</p>
+      <h1>Run the node. <span>Keep everyone connected.</span></h1>
+      <p class="lede">
+        Mesh Contingency turns a <a [href]="meshcore" target="_blank" rel="noopener">MeshCore</a> radio
+        into a lifeline: weather, check-ins, private messages and email, from nothing but a mesh radio.
+        Its web console puts the whole node on one screen, on the node’s own computer.
+      </p>
+      <div class="cta">
+        <a class="btn" routerLink="/setup">Set up a node <app-icon name="arrow" /></a>
+        <a class="btn btn-ghost" routerLink="/console"><app-icon name="monitor" /> See the console</a>
+      </div>
+      <ul class="facts">
+        <li><strong>1</strong> screen for the node</li>
+        <li><strong>{{ commandCount }}</strong> radio commands</li>
+        <li><strong>0</strong> cell towers</li>
+      </ul>
+    </div>
+    <app-hero-carousel />
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap">
+    <header class="head">
+      <p class="kicker">How it works</p>
+      <h2>One node bridges the mesh to the world</h2>
+      <p>
+        A small computer with a MeshCore companion radio on USB runs the node. It answers direct
+        messages over the mesh and, when the internet is reachable from the node, fetches weather and
+        sends email for people who can’t. You run it from the web console, or from your own radio.
+      </p>
+    </header>
+    <div class="flow" role="img" aria-label="People's radios send a message across mesh repeaters to the node, which reaches weather and email services and replies back over the mesh.">
+      <div class="station">
+        <span class="s-icon"><app-icon name="radio" /></span>
+        <strong>Their radio</strong>
+        <small>Any MeshCore companion</small>
+      </div>
+      <div class="hop"><span></span><small>mesh hops</small></div>
+      <div class="station core">
+        <img src="branding/mesh-contingency-mark.svg" alt="" width="54" height="59" />
+        <strong>Your node</strong>
+        <small>Radio + computer + console</small>
+      </div>
+      <div class="hop sky"><span></span><small>when available</small></div>
+      <div class="station">
+        <span class="s-icon"><app-icon name="mail" /></span>
+        <strong>The world</strong>
+        <small>Weather · Email</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <header class="head">
+      <p class="kicker">Explore</p>
+      <h2>One node, two sides</h2>
+    </header>
+    <ul class="paths">
+      @for (p of paths; track p.link) {
+        <li>
+          <a [routerLink]="p.link">
+            <span class="f-icon"><app-icon [name]="p.icon" /></span>
+            <small>{{ p.kicker }}</small>
+            <h3>{{ p.title }} <app-icon name="arrow" /></h3>
+            <p>{{ p.body }}</p>
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap">
+    <header class="head">
+      <p class="kicker">Documentation</p>
+      <h2>The manual lives in the wiki</h2>
+    </header>
+    <ul class="guides">
+      @for (g of guides; track g.title) {
+        <li>
+          <a [href]="g.url" target="_blank" rel="noopener">
+            <span class="f-icon"><app-icon [name]="g.icon" /></span>
+            <h3>{{ g.title }} <app-icon name="arrow" /></h3>
+            <p>{{ g.body }}</p>
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+</section>

@@ -53,8 +53,11 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
-            ]
+              "src/styles.scss",
+              "src/site.scss"
+            ],
+            "server": "src/main.server.ts",
+            "outputMode": "static"
           },
           "configurations": {
             "production": {

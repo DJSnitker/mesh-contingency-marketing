@@ -73,6 +73,38 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
         @case ('close') {
           <path d="M6 6l12 12M18 6 6 18" />
         }
+        @case ('gauge') {
+          <path d="M4.5 18a9 9 0 1 1 15 0" />
+          <path d="m12 14 4-5" />
+          <circle cx="12" cy="14" r="1.2" />
+        }
+        @case ('users') {
+          <circle cx="9" cy="8" r="3.5" />
+          <path d="M2.5 20a6.5 6.5 0 0 1 13 0" />
+          <path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18.5 14a6.5 6.5 0 0 1 3 6" />
+        }
+        @case ('send') {
+          <path d="M21 3 10 14" />
+          <path d="M21 3l-7 18-4-7-7-4Z" />
+        }
+        @case ('clock') {
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 7v5l3 2" />
+        }
+        @case ('play') {
+          <path d="M7 4.5v15l12-7.5Z" />
+        }
+        @case ('pause') {
+          <path d="M8 5v14M16 5v14" />
+        }
+        @case ('compass') {
+          <circle cx="12" cy="12" r="9" />
+          <path d="m15.5 8.5-2 5-5 2 2-5Z" />
+        }
+        @case ('monitor') {
+          <rect x="2.5" y="4" width="19" height="13" rx="2" />
+          <path d="M8 21h8M12 17v4" />
+        }
       }
     </svg>
   `,

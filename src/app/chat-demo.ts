@@ -18,6 +18,7 @@ import { Exchange } from './content';
   selector: 'app-chat-demo',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './chat-demo.scss',
+  host: { '[class.compact]': 'compact()' },
   template: `
     <div class="device">
       <div class="bar">
@@ -46,6 +47,8 @@ import { Exchange } from './content';
 export class ChatDemo {
   readonly title = input('Contingency node');
   readonly exchanges = input.required<Exchange[]>();
+  // A shorter transcript, for the hero carousel on phones.
+  readonly compact = input(false);
 
   private readonly count = signal(0);
   protected readonly typing = signal(false);
