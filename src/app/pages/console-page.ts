@@ -44,7 +44,7 @@ import { Icon } from '../icon';
             The console runs the same commands an admin sends from a radio, as an admin called
             <code>console</code>: the same checks, rate limits and confirmations, and
             <code>history</code> records them <em>by console</em>. Away from the computer, the radio in
-            your hand still does it all.
+            your hand still does almost all of it.
           </p>
         </header>
         <ol class="equivalents">
@@ -62,6 +62,11 @@ import { Icon } from '../icon';
             </li>
           }
         </ol>
+        <p class="fine">
+          The one exception is the radio’s own settings. Over the mesh, <code>radio</code> only shows
+          them: a wrong frequency sent from your radio would cut you off from the node. The console
+          reaches the radio over USB, so it can always set things back.
+        </p>
         <div class="cta">
           <a class="btn btn-ghost" routerLink="/commands"><app-icon name="list" /> All {{ commandCount }} commands</a>
         </div>

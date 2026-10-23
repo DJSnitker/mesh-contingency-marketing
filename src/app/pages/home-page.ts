@@ -21,7 +21,7 @@ export class HomePage {
       icon: 'monitor',
       kicker: 'For you, running it',
       title: 'The web console',
-      body: 'Everything an admin does, on one screen on the node’s computer: users, check-ins, alerts, the radio, and a live log.',
+      body: 'Everything an admin does, on one screen on the node’s computer: users, check-ins, alerts, the radio’s settings and contacts, and a live log.',
     },
     {
       link: '/people',

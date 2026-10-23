@@ -32,6 +32,7 @@ import { FEATURES, SAFEGUARDS } from '../content';
             <li>It needs the key in the link the bot prints, then a cookie. Each restart makes a new key.</li>
             <li>It refuses other hosts and origins and sends a strict Content-Security-Policy, so other web pages can’t use it.</li>
             <li>It can’t read sealed messages or change <code>config.toml</code>.</li>
+            <li>The radio’s settings change only here. It reaches the radio over USB, so a setting that cuts the node off from the mesh can’t cut off the console, and a new frequency waits for the node’s name to be typed.</li>
             <li>Its fonts are bundled, so it works with no internet.</li>
           </ul>
         </div>

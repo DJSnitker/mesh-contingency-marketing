@@ -26,6 +26,7 @@ export const COMMANDS: Command[] = [
   { name: 'clearinbox', usage: 'clearinbox [all]', level: 'users', description: "Delete the messages you've read, or all of them" },
   { name: 'clearstatus', usage: 'clearstatus', level: 'admins', description: 'Delete every check-in' },
   { name: 'comm', usage: 'comm <message>', level: 'admins', description: 'Post a message to the communications channel, #contingency-comm' },
+  { name: 'contact', usage: 'contact remove|path <name or key>', level: 'admins', description: 'Remove a contact from the radio (it asks first), or reset the path to it' },
   { name: 'contacts', usage: 'contacts [name or key] [page]', level: 'admins', description: "List the radio's contacts" },
   { name: 'deny', usage: 'deny <name or key>', level: 'admins', description: 'Turn down a join request' },
   { name: 'email', usage: 'email <address> <message>', level: 'users', description: 'Email any address' },
@@ -39,6 +40,7 @@ export const COMMANDS: Command[] = [
   { name: 'msg', usage: 'msg <name> <message>', level: 'users', description: 'Leave a message for another user' },
   { name: 'ok', usage: 'ok [status]', level: 'anyone', description: "Check in: tell others you're ok" },
   { name: 'qm', usage: 'qm <message>', level: 'users', description: 'Quick message: email your preset contact' },
+  { name: 'radio', usage: 'radio', level: 'admins', description: "Show the radio's settings; change them from the web console only" },
   { name: 'reload', usage: 'reload', level: 'admins', description: 'Re-read the users file now' },
   { name: 'remove', usage: 'remove <name or key>', level: 'admins', description: 'Remove a user and their messages' },
   { name: 'resetpass', usage: 'resetpass <name or key>', level: 'admins', description: "Clear a user's forgotten passphrase" },
@@ -103,11 +105,19 @@ export const TOUR: TourStop[] = [
     id: 'reach',
     icon: 'send',
     label: 'Reach everyone',
-    title: 'Post, message and run the radio',
-    body: "Post to #contingency-wx or #contingency-comm, with a count of the room left in one message, or leave a message in someone's inbox. Advert or flood advert, back up now, and see the radio's contacts and channels: reset a contact's path, or remove one the radio no longer needs.",
+    title: 'Post and leave messages',
+    body: "Post to #contingency-wx or #contingency-comm, with a count of the room left in one message, or leave a message in someone's inbox. It goes out under the node's name, as console.",
+    shots: [{ page: 'Send', src: 'console/send.png', alt: "The Send page: post to a channel, or leave a message in a user's inbox" }],
+  },
+  {
+    id: 'radio',
+    icon: 'radio',
+    label: 'Run the radio',
+    title: 'The radio itself, over USB',
+    body: "The Radio page's Settings tab shows the radio's name, frequency (with the MeshCore presets that match), TX power, position, clock and firmware, with a form to change each, or reboot it. A new frequency is set apart, and waits for you to type the node's name. Its other tabs list the contacts, to reset a path or remove one the radio no longer needs, and the channels, with what's said on them. Advert and back up now are there too.",
     shots: [
-      { page: 'Send', src: 'console/send.png', alt: "The Send page: post to a channel, or leave a message in a user's inbox" },
-      { page: 'Radio', src: 'console/radio.png', alt: "The Radio page: Advert, Flood advert, Back up now, and the radio's contacts with Reset path and Remove" },
+      { page: 'Settings', src: 'console/radio-settings.png', alt: "The Radio page's Settings tab: the radio's name, frequency, TX power, position, clock and firmware, with a form to change each" },
+      { page: 'Contacts', src: 'console/radio-contacts.png', alt: "The Radio page's Contacts tab: each contact with its type, path and when it was last heard, with Reset path and Remove" },
     ],
   },
   {
@@ -221,7 +231,7 @@ export interface Safeguard {
 export const SAFEGUARDS: Safeguard[] = [
   {
     title: 'Looks after itself',
-    body: "Admins get a direct message when something goes wrong with the node (a low battery, the radio restarting, email failing) and when it's over. Its data is backed up every day, and admin actions are recorded with who did them and when.",
+    body: "Admins get a direct message when something goes wrong with the node (a low battery, the radio restarting, email failing) and when it's over. Its data is backed up every day, the radio's clock is set at each start, and admin actions are recorded with who did them and when.",
   },
   {
     title: 'Checked by full key',
@@ -237,7 +247,7 @@ export const SAFEGUARDS: Safeguard[] = [
   },
   {
     title: 'Confirm before it’s gone',
-    body: 'remove, resetpass and leave first say what they would do and wait for the same command again within 5 minutes. In the console, they wait for Confirm.',
+    body: 'remove, resetpass, leave, contact remove, and a radio reboot or new frequency first say what they would do and wait for the same command again within 5 minutes. In the console, they wait for Confirm.',
   },
   {
     title: 'Fits the airwaves',
@@ -256,7 +266,7 @@ export const GUIDES: Guide[] = [
   {
     icon: 'shield',
     title: 'Admin Guide',
-    body: 'The web console, adding and managing users, health and problem notices, backups, adverts, weather alerts, news and roll calls.',
+    body: "The web console, the radio's settings and contacts, adding and managing users, health and problem notices, backups, weather alerts, news and roll calls.",
     url: `${WIKI_URL}/Admin-Guide`,
   },
   {
@@ -292,7 +302,7 @@ export const HERO_SLIDES: Slide[] = [
   { kind: 'radio', label: 'On the radio', title: 'Check in from anywhere on the mesh', device: 'Contingency node', demo: demoOf('check') },
   { kind: 'console', label: 'Web console', title: 'Approve people as they join', shot: shotOf('Users') },
   { kind: 'radio', label: 'On the radio', title: 'Weather with no internet on your end', device: 'Contingency node', demo: demoOf('weather') },
-  { kind: 'console', label: 'Web console', title: 'Post news to everyone at once', shot: shotOf('Send') },
+  { kind: 'console', label: 'Web console', title: 'Tune the radio without touching it', shot: shotOf('Settings') },
   { kind: 'radio', label: 'On the radio', title: 'Messages only you can open', device: 'Sealed inbox', demo: demoOf('lock') },
   { kind: 'console', label: 'Web console', title: 'Weather for every county you watch', shot: shotOf('Area Weather') },
   { kind: 'radio', label: 'On the radio', title: 'Email family off the mesh', device: 'Contingency node', demo: demoOf('mail') },
