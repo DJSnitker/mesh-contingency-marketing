@@ -11,13 +11,16 @@ npm run build      # prerendered pages in dist/mesh-contingency-marketing/browse
 - Each page is a route (`src/app/app.routes.ts`, components in `src/app/pages`), prerendered at
   build time to its own `index.html`, so every address works on GitHub Pages and has its own title
   and description for link previews.
-- Shared copy (commands, features, the console tour, the hero carousel's slides, guides) lives in
+- Shared copy (commands, features, the console and phone app tours, the hero carousel's slides, guides) lives in
   `src/app/content.ts`.
 - Brand colors are CSS variables at the top of `src/styles.scss`, taken from
   `docs/branding` in mesh-contingency: `#0D1117`, `#151B23`, `#FF5F1F`, `#38BDF8`, `#F2F5F8`.
 - Logos in `public/branding` are copied from that same folder; re-copy them if the branding changes.
 - Console screenshots in `public/console` come from mesh-contingency's
   `scripts/demo_console.py --screenshots DIR` (made-up data); regenerate them when the console changes.
+- Phone app screenshots in `public/app` come from the app's demo build (`npm run demo` in
+  mesh-contingency's `app/`: a pretend radio answering with the bot's real replies), taken at
+  390×844 at 2x; regenerate them when the app's screens change.
 
 ## Deploying
 

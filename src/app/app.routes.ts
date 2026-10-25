@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AppPage } from './pages/app-page';
 import { CommandsPage } from './pages/commands-page';
 import { ConsolePage } from './pages/console-page';
 import { HomePage } from './pages/home-page';
@@ -13,7 +14,7 @@ export const routes: Routes = [
     component: HomePage,
     title: 'Mesh Contingency: a contingency link over MeshCore',
     data: {
-      description: 'Weather, check-ins, private messages and email over a MeshCore mesh radio, and a web console that puts the whole node on one screen.',
+      description: 'Weather, check-ins, private messages and email over a MeshCore mesh radio, a web console that puts the whole node on one screen, and a phone app for everyone on the mesh.',
     },
   },
   {
@@ -22,6 +23,14 @@ export const routes: Routes = [
     title: 'The web console · Mesh Contingency',
     data: {
       description: "Run a Mesh Contingency node from a browser on its own computer: users, check-ins, alerts, the node's health and the radio, on one screen.",
+    },
+  },
+  {
+    path: 'app',
+    component: AppPage,
+    title: 'The phone app · Mesh Contingency',
+    data: {
+      description: 'Join, check in, read the mailbox, email, chat and get the weather from your phone, over Bluetooth to your own MeshCore radio, with no internet.',
     },
   },
   {

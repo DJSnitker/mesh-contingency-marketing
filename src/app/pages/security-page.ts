@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ChatDemo } from '../chat-demo';
-import { FEATURES, SAFEGUARDS } from '../content';
+import { APP_TOUR, FEATURES, SAFEGUARDS } from '../content';
 
 @Component({
   selector: 'app-security-page',
@@ -46,7 +46,31 @@ Listening for direct messages (Ctrl+C to quit)...</code></pre>
       </div>
     </section>
 
-    <section class="section">
+    <section id="app" class="section">
+      <div class="wrap split">
+        <div>
+          <p class="kicker">The phone app</p>
+          <h2>Nothing leaves the phone but over the radio</h2>
+          <p>
+            The app talks to its user’s own radio over Bluetooth, and the radio carries each request to the
+            node as a direct message, exactly as a typed command. It adds no new way into the node.
+          </p>
+          <ul class="checks">
+            <li>Every request is an ordinary direct message, so the node checks the sender’s full key, permissions, rate limits and confirmations as it does for any radio.</li>
+            <li>Release builds have no internet permission. Android asks only for Nearby devices (location only on Android 11 and older, which needed it to scan).</li>
+            <li>The passphrase is typed for each <code>inbox</code> and <code>setpass</code> and never stored, and opened messages aren’t kept on the phone.</li>
+            <li>It sends the node only user commands: no remote admin. Its Radio tab changes the user’s own radio, never the node’s.</li>
+            <li>Chats are kept on the phone only, until cleared; what’s sent to the node isn’t kept with them.</li>
+          </ul>
+        </div>
+        <figure class="phone">
+          <img [src]="mailboxShot.src" [alt]="mailboxShot.alt" width="780" height="1688" loading="lazy" />
+          <figcaption>Mailbox · demo radio, made-up data</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section alt">
       <div class="wrap">
         <header class="head">
           <p class="kicker">Safeguards</p>
@@ -63,7 +87,7 @@ Listening for direct messages (Ctrl+C to quit)...</code></pre>
       </div>
     </section>
 
-    <section class="section alt">
+    <section class="section">
       <div class="wrap split">
         <div>
           <p class="kicker">Sealed messages</p>
@@ -77,6 +101,7 @@ Listening for direct messages (Ctrl+C to quit)...</code></pre>
             <li>The passphrase and private half are never stored: <code>inbox &lt;passphrase&gt;</code> rebuilds the key, opens the messages and forgets it again.</li>
             <li>Private commands never echo the message, passphrase or reply to the node’s console or log.</li>
             <li>The web console shows who has messages waiting, never what they say.</li>
+            <li>The phone app asks for the passphrase each time, and warns before a new one would lose sealed messages.</li>
           </ul>
           <p class="fine">
             A forgotten passphrase can’t be recovered, and messages sealed with it are lost. Sealing protects
@@ -90,5 +115,6 @@ Listening for direct messages (Ctrl+C to quit)...</code></pre>
 })
 export class SecurityPage {
   protected readonly safeguards = SAFEGUARDS;
+  protected readonly mailboxShot = APP_TOUR.flatMap((t) => t.shots).find((s) => s.page === 'Mailbox')!;
   protected readonly sealedDemo = FEATURES.find((f) => f.icon === 'lock')!.demo;
 }

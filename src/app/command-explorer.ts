@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
-import { COMMANDS, Level, WIKI_URL } from './content';
+import { APP_COMMANDS, COMMANDS, Level, WIKI_URL } from './content';
 import { Icon } from './icon';
 
 // Searchable list of every command, filtered by who can run it.
@@ -42,6 +42,9 @@ import { Icon } from './icon';
           <a [href]="wiki + '/Commands#' + c.name" target="_blank" rel="noopener">
             <div class="top">
               <code>{{ c.usage }}</code>
+              @if (inApp.has(c.name)) {
+                <span class="in-app" title="In the phone app"><app-icon name="phone" /><span class="sr-only">In the phone app</span></span>
+              }
               <span class="tag" [class]="c.level">{{ c.level }}</span>
             </div>
             <p>{{ c.description }}</p>
@@ -54,11 +57,13 @@ import { Icon } from './icon';
 
     <p class="note">
       Shown as in the example config. Who may run each command is set entirely by the node’s owner.
+      <app-icon name="phone" class="note-icon" /> marks the commands the phone app sends from its screens.
     </p>
   `,
 })
 export class CommandExplorer {
   protected readonly wiki = WIKI_URL;
+  protected readonly inApp = APP_COMMANDS;
   protected readonly levels: { value: Level | 'all'; label: string }[] = [
     { value: 'all', label: 'All' },
     { value: 'anyone', label: 'Anyone' },

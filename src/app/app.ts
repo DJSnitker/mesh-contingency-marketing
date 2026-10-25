@@ -24,6 +24,7 @@ export class App {
 
   protected readonly nav = [
     { link: '/console', label: 'Web console' },
+    { link: '/app', label: 'Phone app' },
     { link: '/people', label: 'For your people' },
     { link: '/commands', label: 'Commands' },
     { link: '/security', label: 'Security' },

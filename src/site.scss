@@ -86,6 +86,15 @@ li code {
   margin-top: 28px;
 }
 
+// Three buttons in the home hero's narrow column.
+.hero-copy .cta {
+  gap: 10px;
+
+  .btn {
+    padding-inline: 16px;
+  }
+}
+
 // Navigation
 
 .nav {
@@ -612,6 +621,29 @@ h2.small {
   }
 }
 
+// The two ways in, the console and the app, above the rest
+.paths.sides {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  margin-bottom: 18px;
+
+  a {
+    padding: 34px;
+    border-color: rgb(255 95 31 / 28%);
+  }
+
+  h3 {
+    font-size: 1.7rem;
+  }
+
+  @media (max-width: 560px) {
+    grid-template-columns: 1fr;
+
+    a {
+      padding: 28px;
+    }
+  }
+}
+
 // Numbered steps
 
 .steps {
@@ -1011,7 +1043,8 @@ h2.small {
 
   nav {
     display: flex;
-    gap: 22px;
+    flex-wrap: wrap;
+    gap: 8px 22px;
   }
 
   a {

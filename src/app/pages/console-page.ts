@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ConsoleTour } from '../console-tour';
-import { COMMANDS, EQUIVALENTS } from '../content';
+import { COMMANDS, EQUIVALENTS, TOUR } from '../content';
 import { Icon } from '../icon';
+import { ScreenTour } from '../screen-tour';
 
 @Component({
   selector: 'app-console-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ConsoleTour, Icon, RouterLink],
+  imports: [Icon, RouterLink, ScreenTour],
   template: `
     <header class="page-hero">
       <div class="wrap">
@@ -16,7 +16,8 @@ import { Icon } from '../icon';
         <p class="lede">
           No radio in hand, no 133-character replies. Turn the console on and open it in a browser on the
           node’s computer: the node’s health, its people and its radio, side by side. It works with no
-          internet, and it’s off until you turn it on.
+          internet, and it’s off until you turn it on. Your people get their own screens: the
+          <a routerLink="/app">phone app</a>.
         </p>
         <div class="cta">
           <a class="btn" routerLink="/setup" fragment="console">Turn it on <app-icon name="arrow" /></a>
@@ -31,7 +32,7 @@ import { Icon } from '../icon';
           <p class="kicker">Tour the pages</p>
           <h2>Grouped by what you’re doing</h2>
         </header>
-        <app-console-tour />
+        <app-screen-tour [stops]="tour" prefix="tour" label="Console pages" />
       </div>
     </section>
 
@@ -69,12 +70,14 @@ import { Icon } from '../icon';
         </p>
         <div class="cta">
           <a class="btn btn-ghost" routerLink="/commands"><app-icon name="list" /> All {{ commandCount }} commands</a>
+          <a class="btn btn-ghost" routerLink="/app"><app-icon name="phone" /> The phone app</a>
         </div>
       </div>
     </section>
   `,
 })
 export class ConsolePage {
+  protected readonly tour = TOUR;
   protected readonly equivalents = EQUIVALENTS;
   protected readonly commandCount = COMMANDS.length;
 }

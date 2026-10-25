@@ -57,3 +57,12 @@
     }
   }
 }
+
+// A phone is narrow, so it takes the smaller column.
+:host(.on-phone) .panel {
+  grid-template-columns: 1.4fr 1fr;
+
+  @media (max-width: 960px) {
+    grid-template-columns: 1fr;
+  }
+}
