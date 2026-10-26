@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { APP_EQUIVALENTS, APP_TOUR, REPO_URL, RELEASES_URL } from '../content';
+import { APP_EQUIVALENTS, APP_TOUR, RELEASES_URL, WIKI_URL } from '../content';
 import { Icon } from '../icon';
 import { ScreenTour } from '../screen-tour';
 
@@ -148,7 +148,7 @@ const DOWNLOADS = [
         </ul>
         <div class="cta">
           <a class="btn" [href]="releases" target="_blank" rel="noopener">Download the latest release <app-icon name="arrow" /></a>
-          <a class="btn btn-ghost" [href]="appUrl" target="_blank" rel="noopener"><app-icon name="github" /> Installing, in detail</a>
+          <a class="btn btn-ghost" [href]="guide" target="_blank" rel="noopener"><app-icon name="book" /> Step by step, in the User Guide</a>
         </div>
 
         <ol class="steps after-downloads">
@@ -176,6 +176,6 @@ export class AppPage {
   protected readonly tour = APP_TOUR;
   protected readonly equivalents = APP_EQUIVALENTS;
   protected readonly downloads = DOWNLOADS;
-  protected readonly appUrl = `${REPO_URL}/blob/main/app/README.md#installers`;
+  protected readonly guide = `${WIKI_URL}/User-Guide#use-the-app-phone-or-computer`;
   protected readonly releases = RELEASES_URL;
 }
