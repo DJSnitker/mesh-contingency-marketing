@@ -23,9 +23,9 @@ export class App {
   protected readonly year = new Date().getFullYear();
 
   protected readonly nav = [
-    { link: '/console', label: 'Web console' },
-    { link: '/app', label: 'The app' },
-    { link: '/people', label: 'For your people' },
+    { link: '/console', label: 'Console' },
+    { link: '/app', label: 'App' },
+    { link: '/people', label: 'Mesh Device' },
     { link: '/commands', label: 'Commands' },
     { link: '/security', label: 'Security' },
     { link: '/setup', label: 'Set up' },
