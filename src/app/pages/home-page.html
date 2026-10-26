@@ -19,19 +19,21 @@
 
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <p class="eyebrow"><span class="pulse"></span> New in 0.8.2: admins set users’ email addresses</p>
+      <p class="eyebrow"><span class="pulse"></span> New in 0.11.0: <a routerLink="/app">the desktop app</a></p>
       <h1>Run the node. <span>Keep everyone connected.</span></h1>
       <p class="lede">
         Mesh Contingency turns a <a [href]="meshcore" target="_blank" rel="noopener">MeshCore</a> radio
         into a lifeline: weather, check-ins, private messages and email, from nothing but a mesh radio.
-        Its web console puts the whole node on one screen, on the node’s own computer.
+        Its web console puts the whole node on one screen for you; its app puts every command a tap
+        away for your people, on their phone or computer.
       </p>
       <div class="cta">
         <a class="btn" routerLink="/setup">Set up a node <app-icon name="arrow" /></a>
-        <a class="btn btn-ghost" routerLink="/console"><app-icon name="monitor" /> See the console</a>
+        <a class="btn btn-ghost" routerLink="/console"><app-icon name="monitor" /> The console</a>
+        <a class="btn btn-ghost" routerLink="/app"><app-icon name="phone" /> The app</a>
       </div>
       <ul class="facts">
-        <li><strong>1</strong> screen for the node</li>
+        <li><strong>2</strong> apps for the node</li>
         <li><strong>{{ commandCount }}</strong> radio commands</li>
         <li><strong>0</strong> cell towers</li>
       </ul>
@@ -48,14 +50,15 @@
       <p>
         A small computer with a MeshCore companion radio on USB runs the node. It answers direct
         messages over the mesh and, when the internet is reachable from the node, fetches weather and
-        sends email for people who can’t. You run it from the web console, or from your own radio.
+        sends email for people who can’t. You run it from the web console, or from your own radio; your
+        people reach it from the app or any MeshCore app.
       </p>
     </header>
     <div class="flow" role="img" aria-label="People's radios send a message across mesh repeaters to the node, which reaches weather and email services and replies back over the mesh.">
       <div class="station">
-        <span class="s-icon"><app-icon name="radio" /></span>
+        <span class="s-icon"><app-icon name="phone" /></span>
         <strong>Their radio</strong>
-        <small>Any MeshCore companion</small>
+        <small>The app on a phone or computer, or any MeshCore app</small>
       </div>
       <div class="hop"><span></span><small>mesh hops</small></div>
       <div class="station core">
@@ -79,6 +82,18 @@
       <p class="kicker">Explore</p>
       <h2>One node, two sides</h2>
     </header>
+    <ul class="paths sides">
+      @for (p of sides; track p.link) {
+        <li>
+          <a [routerLink]="p.link">
+            <span class="f-icon"><app-icon [name]="p.icon" /></span>
+            <small>{{ p.kicker }}</small>
+            <h3>{{ p.title }} <app-icon name="arrow" /></h3>
+            <p>{{ p.body }}</p>
+          </a>
+        </li>
+      }
+    </ul>
     <ul class="paths">
       @for (p of paths; track p.link) {
         <li>

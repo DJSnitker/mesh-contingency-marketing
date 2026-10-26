@@ -34,6 +34,18 @@
   &.radio {
     max-width: 380px;
   }
+
+  &.desktop {
+    max-width: 520px;
+  }
+
+  &.app .phone {
+    max-width: 210px;
+
+    @media (max-width: 560px) {
+      max-width: 150px;
+    }
+  }
 }
 
 .caption {
@@ -73,6 +85,13 @@
     border-color: rgb(56 189 248 / 45%);
     background: rgb(56 189 248 / 10%);
     color: var(--sky);
+  }
+
+  &.app,
+  &.desktop {
+    border-color: rgb(242 245 248 / 35%);
+    background: rgb(242 245 248 / 7%);
+    color: var(--text);
   }
 }
 
@@ -138,6 +157,11 @@
       background: rgb(56 189 248 / 25%);
     }
 
+    &.app::before,
+    &.desktop::before {
+      background: rgb(242 245 248 / 18%);
+    }
+
     // The current slide stands out even with no progress bar (reduced motion).
     &.on::before {
       background: rgb(255 95 31 / 45%);
@@ -145,6 +169,11 @@
 
     &.on.radio::before {
       background: rgb(56 189 248 / 45%);
+    }
+
+    &.on.app::before,
+    &.on.desktop::before {
+      background: rgb(242 245 248 / 35%);
     }
   }
 
@@ -162,6 +191,11 @@
 
   .radio .fill {
     background: var(--sky);
+  }
+
+  .app .fill,
+  .desktop .fill {
+    background: var(--text);
   }
 }
 

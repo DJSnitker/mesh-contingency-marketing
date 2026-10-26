@@ -103,6 +103,39 @@ a {
   }
 }
 
+// The desktop app's window: its title where a browser has the address.
+.browser.window .b-bar span {
+  background: none;
+  font-family: var(--body);
+  text-align: center;
+}
+
+// A phone around a screenshot of the app.
+.phone {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 9px;
+  border: 1px solid var(--line);
+  border-radius: 36px;
+  background: #06090d;
+  box-shadow: 0 30px 80px -30px rgb(0 0 0 / 70%), 0 0 0 1px rgb(255 95 31 / 6%);
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 28px;
+  }
+
+  figcaption {
+    padding: 10px 6px 2px;
+    color: var(--muted);
+    font-size: 0.78rem;
+    text-align: center;
+  }
+}
+
 .sr-only {
   position: absolute;
   width: 1px;

@@ -101,6 +101,24 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
           <circle cx="12" cy="12" r="9" />
           <path d="m15.5 8.5-2 5-5 2 2-5Z" />
         }
+        @case ('phone') {
+          <rect x="6.5" y="2.5" width="11" height="19" rx="2.5" />
+          <path d="M10.5 18.5h3" />
+        }
+        @case ('laptop') {
+          <rect x="4" y="5" width="16" height="11" rx="1.5" />
+          <path d="M2 19h20" />
+        }
+        @case ('chat') {
+          <path d="M20 12a8 8 0 0 1-11.5 7.2L4 20l1-4.2A8 8 0 1 1 20 12z" />
+          <path d="M8.5 12h.01M12 12h.01M15.5 12h.01" />
+        }
+        @case ('sliders') {
+          <path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12" />
+          <circle cx="16" cy="6" r="2" />
+          <circle cx="10" cy="12" r="2" />
+          <circle cx="18" cy="18" r="2" />
+        }
         @case ('monitor') {
           <rect x="2.5" y="4" width="19" height="13" rx="2" />
           <path d="M8 21h8M12 17v4" />

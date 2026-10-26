@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { GUIDES, REPO_URL, WIKI_URL } from '../content';
+import { RouterLink } from '@angular/router';
+import { APP_TOUR, GUIDES, REPO_URL, WIKI_URL } from '../content';
 import { Icon } from '../icon';
 
 @Component({
   selector: 'app-setup-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Icon],
+  imports: [Icon, RouterLink],
   template: `
     <header class="page-hero">
       <div class="wrap split">
@@ -59,6 +60,7 @@ chmod 600 config.toml users.toml
 <span class="c"># config.toml: who can run what</span>
 <span class="k">[commands]</span>
 wx      = {{ '{' }} permission = <span class="s">"public"</span> {{ '}' }}
+area    = {{ '{' }} permission = <span class="s">"public"</span> {{ '}' }}  <span class="c"># the app's Weather tab</span>
 msg     = {{ '{' }} permission = <span class="s">"user"</span> {{ '}' }}
 approve = {{ '{' }} permission = <span class="s">"admin"</span> {{ '}' }}
 
@@ -113,6 +115,29 @@ cat console.url</code></pre>
     </section>
 
     <section class="section">
+      <div class="wrap split">
+        <div>
+          <p class="kicker">Then, your people</p>
+          <h2>Hand them the app</h2>
+          <p>
+            Your node needs nothing more for the app: it sends the same commands people type. Each person
+            installs it on an Android phone or a Windows, Mac or Linux computer, connects their own MeshCore
+            radio over Bluetooth or USB, picks your node and presses Join; you approve them from the console.
+            Turn on <code>area</code> for its Weather tab’s county cards.
+          </p>
+          <div class="cta">
+            <a class="btn" routerLink="/app" fragment="get">Get the app <app-icon name="arrow" /></a>
+            <a class="btn btn-ghost" routerLink="/app"><app-icon name="phone" /> Tour the app</a>
+          </div>
+        </div>
+        <figure class="phone">
+          <img [src]="nodeShot.src" [alt]="nodeShot.alt" width="780" height="1688" loading="lazy" />
+          <figcaption>Node · demo radio, made-up data</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section alt">
       <div class="wrap">
         <header class="head">
           <p class="kicker">Documentation</p>
@@ -137,4 +162,5 @@ export class SetupPage {
   protected readonly repo = REPO_URL;
   protected readonly wiki = WIKI_URL;
   protected readonly guides = GUIDES;
+  protected readonly nodeShot = APP_TOUR[0].shots[0];
 }

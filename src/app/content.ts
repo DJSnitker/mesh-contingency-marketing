@@ -4,6 +4,7 @@ export const REPO_URL = 'https://github.com/DJSnitker/mesh-contingency';
 export const WIKI_URL = `${REPO_URL}/wiki`;
 export const MESHCORE_URL = 'https://github.com/meshcore-dev/MeshCore';
 export const CONTACT_EMAIL = 'information@meshcontingency.com';
+export const RELEASES_URL = `${REPO_URL}/releases/latest`;
 
 export type Level = 'anyone' | 'users' | 'admins';
 
@@ -19,6 +20,7 @@ export const COMMANDS: Command[] = [
   { name: 'advert', usage: 'advert [flood]', level: 'admins', description: 'Make the radio advertise itself' },
   { name: 'alert', usage: 'alert <message>', level: 'admins', description: 'Post a message to the alert channel, #contingency-wx' },
   { name: 'alertmap', usage: 'alertmap [county, ST]', level: 'admins', description: 'Look up the NWS codes of the watched counties again' },
+  { name: 'area', usage: 'area [county, ST]', level: 'anyone', description: "A watched county's latest weather report; alone, list the counties" },
   { name: 'approve', usage: 'approve [name or key]', level: 'admins', description: 'Approve a join request; alone, list them' },
   { name: 'backup', usage: 'backup', level: 'admins', description: "Back up the bot's data now" },
   { name: 'checkins', usage: 'checkins [page <n>]', level: 'admins', description: "Roll call: everyone's check-in, or missing" },
@@ -57,15 +59,25 @@ export const COMMANDS: Command[] = [
   { name: 'wx', usage: 'wx <zipcode | county, ST>', level: 'anyone', description: 'Weather and alerts for a US zipcode or county' },
 ];
 
+// The commands the app has screens for: it sends the node only these.
+export const APP_COMMANDS = new Set([
+  'addgroup', 'area', 'cleargroup', 'clearinbox', 'email', 'emailall', 'inbox', 'join', 'msg',
+  'ok', 'qm', 'setpass', 'setqm', 'status', 'verse', 'whoami', 'wx',
+]);
+
 export interface Exchange {
   from: 'me' | 'node';
   text: string;
 }
 
+export type Frame = 'browser' | 'phone' | 'window';
+
 export interface Shot {
   page: string;
   src: string;
   alt: string;
+  // What it's shown in, when not the tour's own frame.
+  frame?: Frame;
 }
 
 export interface TourStop {
@@ -84,10 +96,10 @@ export const TOUR: TourStop[] = [
     icon: 'gauge',
     label: 'See the node',
     title: 'The whole node at a glance',
-    body: "The Dashboard shows users, join requests, check-ins and messages waiting, the weather alerts out now, the node watch, the last backup, health, and a live log of what the bot prints. Area Weather has a card for each county you watch: the latest NWS reading, the next three forecast periods and any alert, updated every 15 minutes and saying how old it is when the internet is down.",
+    body: "The Dashboard shows users, join requests, check-ins and messages waiting, the weather alerts out now, the node watch, the last backup, health, and a live log of what the bot does. The menu is laid out like the app's tabs, and in a window as narrow as a phone it becomes the app's tab bar.",
     shots: [
       { page: 'Dashboard', src: 'console/dashboard.png', alt: "The console's Dashboard: users, join requests, check-ins and messages tiles, then alerts, watch, backup and health, and the live log" },
-      { page: 'Area Weather', src: 'console/weather.png', alt: 'The Area Weather page: a card for each watched county with current conditions, the forecast and any alert' },
+      { page: 'In a narrow window', src: 'console/dashboard-phone.png', alt: 'The Dashboard in a phone-width window, with the tab bar along the bottom', frame: 'phone' },
     ],
   },
   {
@@ -95,31 +107,43 @@ export const TOUR: TourStop[] = [
     icon: 'users',
     label: 'Look after people',
     title: 'Your users, their check-ins, their mail',
-    body: "Approve or deny join requests, look anyone up with Whois, set someone's qm address and email group for them, reset a forgotten passphrase or remove a user. See who has checked in and who hasn't, and clear the roll call after an event. See who has messages waiting, from whom, read or sealed, never what they say.",
+    body: "Approve or deny join requests, look anyone up with Whois, set someone's qm address and email group for them, reset a forgotten passphrase or remove a user. See who has checked in and who hasn't, look up anyone's last check-in, and clear the roll call after an event. Mailbox shows who has messages waiting, from whom, read or sealed, never what they say, and leaves a message in anyone's inbox.",
     shots: [
-      { page: 'Users', src: 'console/users.png', alt: 'The Users page: a join request with Approve and Deny, and each user with Whois, Reset passphrase and Remove' },
-      { page: 'Check-ins', src: 'console/checkins.png', alt: "The Check-ins page: who has checked in, newest first, and who hasn't" },
-      { page: 'Inbox', src: 'console/inbox.png', alt: 'The Inbox page: who has messages waiting and from whom, without their text' },
+      { page: 'Users', src: 'console/users.png', alt: 'The Users page: a join request with Approve and Deny, and each user with Whois, Edit emails, Reset passphrase and Remove' },
+      { page: 'Check-ins', src: 'console/checkins.png', alt: "The Check-ins page: who has checked in, newest first, who hasn't, and a look-up" },
+      { page: 'Mailbox', src: 'console/mailbox.png', alt: 'The Mailbox page: who has messages waiting and from whom, without their text, and Leave a message' },
     ],
   },
   {
     id: 'reach',
     icon: 'send',
-    label: 'Reach everyone',
-    title: 'Post and leave messages',
-    body: "Post to #contingency-wx or #contingency-comm, with a count of the room left in one message, or leave a message in someone's inbox. It goes out under the node's name, as console.",
-    shots: [{ page: 'Send', src: 'console/send.png', alt: "The Send page: post to a channel, or leave a message in a user's inbox" }],
+    label: 'Channels & contacts',
+    title: 'Post to the mesh, tend the radio’s contacts',
+    body: "Contacts opens each of the radio's channels as a thread, with an unread count, and a box to post to it as the node: #contingency-wx, #contingency-comm or any other. Its Contacts tab lists every node the radio knows, with a filter, to reset a path or remove one the radio no longer needs.",
+    shots: [
+      { page: 'Channels', src: 'console/channels.png', alt: "The Contacts page's Channels tab: each channel with its last message and unread count" },
+      { page: 'A channel', src: 'console/channel.png', alt: 'A channel thread with messages from the mesh and a box to post to it as the node' },
+      { page: 'Contacts', src: 'console/contacts.png', alt: "The radio's contacts, each with its type, path and when it was last heard, with Reset path and Remove" },
+    ],
+  },
+  {
+    id: 'weather',
+    icon: 'weather',
+    label: 'Weather & verse',
+    title: 'Every county you watch, and scripture',
+    body: 'A card for each county you watch: the latest NWS reading, the next forecast periods and any alert, updated every 15 minutes and saying how old it is when the internet is down. Star your own to see them first; the rest wait under Show more. The weather for anywhere else, a test of the alert channel, and the Bible: the verse of the day, or any verse.',
+    shots: [
+      { page: 'Weather', src: 'console/weather.png', alt: 'The Weather page: a card for each watched county with current conditions, the forecast and any alert' },
+      { page: 'Bible', src: 'console/bible.png', alt: 'The Bible page: the verse of the day and a box to look one up' },
+    ],
   },
   {
     id: 'radio',
     icon: 'radio',
     label: 'Run the radio',
     title: 'The radio itself, over USB',
-    body: "The Radio page's Settings tab shows the radio's name, frequency (with the MeshCore presets that match), TX power, position, clock and firmware, with a form to change each, or reboot it. A new frequency is set apart, and waits for you to type the node's name. Its other tabs list the contacts, to reset a path or remove one the radio no longer needs, and the channels, with what's said on them. Advert and back up now are there too.",
-    shots: [
-      { page: 'Settings', src: 'console/radio-settings.png', alt: "The Radio page's Settings tab: the radio's name, frequency, TX power, position, clock and firmware, with a form to change each" },
-      { page: 'Contacts', src: 'console/radio-contacts.png', alt: "The Radio page's Contacts tab: each contact with its type, path and when it was last heard, with Reset path and Remove" },
-    ],
+    body: "The Radio page shows the radio's name, frequency (with the MeshCore presets that match), TX power, position, clock and firmware, with a form to change each, or reboot it. A new frequency is set apart, and waits for you to type the node's name. Advertise the node nearby or across the mesh, and back up its data now.",
+    shots: [{ page: 'Radio', src: 'console/radio.png', alt: "The Radio page: Advertise, Backup, and the radio's settings with a form to change each" }],
   },
   {
     id: 'record',
@@ -128,6 +152,74 @@ export const TOUR: TourStop[] = [
     title: 'Every action, and who did it',
     body: "History lists what admins have done, newest first, with who and when, and a filter: a name, approved, alert. Whatever is done from the console shows as by console, next to what admins did over the radio.",
     shots: [{ page: 'History', src: 'console/history.png', alt: 'The History page: admin actions, newest first, with a filter' }],
+  },
+];
+
+// The app's tabs, grouped by what a user is doing. Screenshots are from its
+// demo build, on a pretend radio.
+export const APP_TOUR: TourStop[] = [
+  {
+    id: 'connect',
+    icon: 'radio',
+    label: 'Connect',
+    title: 'Your radio, then the node',
+    body: "Connect the app to your own MeshCore radio over Bluetooth, or on a computer over a USB cable too: it shows the radio's name, battery and firmware, sets its clock from yours, and reconnects when the app opens. Pick the node from the radio's contacts, check whether you're a user, and Join with one press.",
+    shots: [
+      { page: 'Node', src: 'app/node.png', alt: "The app's Node tab: your radio's name, how it's connected, battery and firmware, and the node, with Check and Change node" },
+      { page: 'On a computer', src: 'app/desktop-node.png', alt: "The desktop app's Node tab: Find my radio over Bluetooth, or Connect over USB", frame: 'window' },
+    ],
+  },
+  {
+    id: 'checkin',
+    icon: 'check',
+    label: 'Check in',
+    title: 'One press to say you’re ok',
+    body: "I'm ok, need help, need medical, sheltering in place, evacuating, no power, or your own words, confirmed before it goes. Look up anyone's last check-in, or your own.",
+    shots: [{ page: 'Check-ins', src: 'app/checkins.png', alt: "The app's Check-ins tab: six quick check-ins, your own words, and a look-up" }],
+  },
+  {
+    id: 'mail',
+    icon: 'inbox',
+    label: 'Mail',
+    title: 'Your inbox and email, in your pocket',
+    body: 'Open your inbox (with your passphrase, if you set one, never kept), page through it, clear what you’ve read, and leave a message for another user. Email your preset contact, your group or any address, confirmed first, since an email can’t be taken back.',
+    shots: [
+      { page: 'Mailbox', src: 'app/mailbox.png', alt: "The app's Mailbox tab: open your inbox, clear it, and leave a message for a user" },
+      { page: 'Email', src: 'app/email.png', alt: "The app's Email screen: send to your preset contact, your group or an address, and your addresses" },
+    ],
+  },
+  {
+    id: 'chat',
+    icon: 'chat',
+    label: 'Chat',
+    title: 'Talk to anyone on the mesh',
+    body: "Direct messages with your radio's contacts, each marked delivered or not, and its channels, #contingency-wx and #contingency-comm among them, with unread counts. The history stays on your phone or computer until you clear it.",
+    shots: [
+      { page: 'Chats', src: 'app/chat.png', alt: "The app's Chat tab: chats with people, newest first, with an unread count" },
+      { page: 'A chat', src: 'app/dm.png', alt: 'A direct message chat, each message marked delivered' },
+      { page: 'Channels', src: 'app/channels.png', alt: "The Channels tab: #contingency-wx with the node's alert, Public and #contingency-comm" },
+    ],
+  },
+  {
+    id: 'weather',
+    icon: 'weather',
+    label: 'Weather & verse',
+    title: 'Weather for your county, scripture offline',
+    body: "A card for each county the node watches, from the reports it keeps every 15 minutes: star your own and they load whenever you open Weather. Any other zipcode or county too. The Bible tab has the verse of the day, asked once a day, and any verse you look up.",
+    shots: [
+      { page: 'Weather', src: 'app/weather.png', alt: "The app's Weather tab: starred county cards with conditions, wind, age and tonight's forecast, one with a Wind Advisory" },
+      { page: 'On a computer', src: 'app/desktop-weather.png', alt: "The desktop app's Weather tab: two starred county cards side by side", frame: 'window' },
+      { page: 'Another place', src: 'app/wx.png', alt: 'The weather and alerts for a zipcode, with a Flash Flood Warning' },
+      { page: 'Bible', src: 'app/bible.png', alt: "The app's Bible tab: the verse of the day and a verse looked up" },
+    ],
+  },
+  {
+    id: 'radio',
+    icon: 'sliders',
+    label: 'Your radio',
+    title: 'Your own radio’s settings',
+    body: "Your radio's name, frequency, TX power, position, clock and battery; send an advert nearby or across the mesh; change its settings, or its frequency by MeshCore preset, which asks first and says how to go back. Remove a contact or reset the path to one.",
+    shots: [{ page: 'Radio', src: 'app/radio.png', alt: "The app's Radio tab: your radio's name, frequency, TX power, position, clock, battery and firmware, and adverts" }],
   },
 ];
 
@@ -141,10 +233,19 @@ export interface Equivalent {
 // Console buttons and the radio commands they run, with replies from the wiki.
 export const EQUIVALENTS: Equivalent[] = [
   { page: 'Users', button: 'Approve', command: 'approve (Sam Rivera)', reply: 'approve: Sam Rivera added to users.toml' },
-  { page: 'Send', button: 'Post to #contingency-comm', command: 'comm Water at the fire station until 4pm', reply: 'comm: posted to #contingency-comm' },
+  { page: 'Mailbox', button: 'Leave message', command: 'msg (Tom Becker) Water at the fire station until 4pm', reply: 'msg: saved for Tom Becker (3 in their inbox)' },
   { page: 'Check-ins', button: 'Clear check-ins', command: 'clearstatus', reply: 'clearstatus: cleared 4 statuses' },
   { page: 'Radio', button: 'Back up now', command: 'backup', reply: 'backup: 12 file(s) saved in ~/MeshContingencyBackups/20261022-091340; newest 7 kept' },
-  { page: 'Area Weather', button: 'Post alert test', command: 'testalert', reply: 'testalert: posted to #contingency-wx; next weekly test Wed 5:00PM CDT' },
+  { page: 'Weather', button: 'Post alert test', command: 'testalert', reply: 'testalert: posted to #contingency-wx; next weekly test Wed 5:00PM CDT' },
+];
+
+// App buttons and the commands they send the node, with the bot's replies.
+export const APP_EQUIVALENTS: Equivalent[] = [
+  { page: 'Node', button: 'Join', command: 'join', reply: 'join: request sent to the admins as Dana' },
+  { page: 'Check-ins', button: 'Need help', command: 'ok need help', reply: 'ok: saved for Dana' },
+  { page: 'Mailbox', button: 'Open inbox', command: 'inbox', reply: 'Erin just now: see you at the shelter' },
+  { page: 'Email', button: 'My preset contact', command: 'qm on my way to the shelter', reply: 'qm: sent' },
+  { page: 'Weather', button: 'Jones, TX ★', command: 'area Jones, TX', reply: 'Jones, TX ALERT: Wind Advisory | 70F, Windy | S25mph G40 | 5m ago' },
 ];
 
 export interface Feature {
@@ -232,7 +333,7 @@ export interface Safeguard {
 export const SAFEGUARDS: Safeguard[] = [
   {
     title: 'Looks after itself',
-    body: "Admins get a direct message when something goes wrong with the node (a low battery, the radio restarting, email failing) and when it's over. Its data is backed up every day, the radio's clock is set at each start, and admin actions are recorded with who did them and when.",
+    body: "Admins get a direct message when something goes wrong with the node (a low battery, the radio restarting, email failing) and when it's over. Its data is backed up every day, the radio's clock is set at each start, and admin actions are recorded with who did them and when. Its log keeps who ran which command, never what anyone wrote.",
   },
   {
     title: 'Checked by full key',
@@ -248,7 +349,7 @@ export const SAFEGUARDS: Safeguard[] = [
   },
   {
     title: 'Confirm before it’s gone',
-    body: 'remove, resetpass, leave, contact remove, and a radio reboot or new frequency first say what they would do and wait for the same command again within 5 minutes. In the console, they wait for Confirm.',
+    body: 'remove, resetpass, leave, contact remove, and a radio reboot or new frequency first say what they would do and wait for the same command again within 5 minutes. In the console, they wait for Confirm; the app asks before a check-in, an email or a new passphrase goes out.',
   },
   {
     title: 'Fits the airwaves',
@@ -273,7 +374,7 @@ export const GUIDES: Guide[] = [
   {
     icon: 'radio',
     title: 'User Guide',
-    body: 'Getting connected, joining, checking in, leaving messages, keeping them private, sending email.',
+    body: 'Getting connected, joining, checking in, leaving messages, keeping them private, sending email, by command or from the app.',
     url: `${WIKI_URL}/User-Guide`,
   },
   {
@@ -292,19 +393,25 @@ export const GUIDES: Guide[] = [
 
 export type Slide =
   | { kind: 'console'; label: string; title: string; shot: Shot }
+  | { kind: 'app'; label: string; title: string; shot: Shot }
+  | { kind: 'desktop'; label: string; title: string; shot: Shot }
   | { kind: 'radio'; label: string; title: string; device: string; demo: Exchange[] };
 
 const demoOf = (icon: string) => FEATURES.find((f) => f.icon === icon)!.demo;
 const shotOf = (page: string) => TOUR.flatMap((t) => t.shots).find((s) => s.page === page)!;
+const appShotOf = (page: string) => APP_TOUR.flatMap((t) => t.shots).find((s) => s.page === page)!;
 
-// The hero carousel: the operator's console and a radio user's screen, in turn.
+// The hero carousel: the operator's console, the app on a phone and a
+// computer, and a radio user's screen, in turn.
 export const HERO_SLIDES: Slide[] = [
   { kind: 'console', label: 'Web console', title: 'The whole node at a glance', shot: shotOf('Dashboard') },
-  { kind: 'radio', label: 'On the radio', title: 'Check in from anywhere on the mesh', device: 'Contingency node', demo: demoOf('check') },
-  { kind: 'console', label: 'Web console', title: 'Approve people as they join', shot: shotOf('Users') },
+  { kind: 'app', label: 'Phone app', title: 'Check in with one press', shot: appShotOf('Check-ins') },
   { kind: 'radio', label: 'On the radio', title: 'Weather with no internet on your end', device: 'Contingency node', demo: demoOf('weather') },
-  { kind: 'console', label: 'Web console', title: 'Tune the radio without touching it', shot: shotOf('Settings') },
+  { kind: 'console', label: 'Web console', title: 'Approve people as they join', shot: shotOf('Users') },
+  { kind: 'desktop', label: 'Desktop app', title: 'Your radio on a USB cable', shot: { page: 'Node', src: 'app/desktop-node.png', alt: "The desktop app's Node tab: Find my radio over Bluetooth, or Connect over USB" } },
   { kind: 'radio', label: 'On the radio', title: 'Messages only you can open', device: 'Sealed inbox', demo: demoOf('lock') },
-  { kind: 'console', label: 'Web console', title: 'Weather for every county you watch', shot: shotOf('Area Weather') },
+  { kind: 'console', label: 'Web console', title: 'Post to every channel as the node', shot: shotOf('A channel') },
+  { kind: 'app', label: 'Phone app', title: 'Chat with anyone on the mesh', shot: appShotOf('A chat') },
   { kind: 'radio', label: 'On the radio', title: 'Email family off the mesh', device: 'Contingency node', demo: demoOf('mail') },
+  { kind: 'desktop', label: 'Desktop app', title: 'Weather for your county, at your desk', shot: { page: 'Weather', src: 'app/desktop-weather.png', alt: "The desktop app's Weather tab: two starred county cards side by side" } },
 ];

@@ -14,7 +14,7 @@ import { Icon } from './icon';
 const CONSOLE_MS = 6000;
 const RADIO_MS = 9000;
 
-// The hero's slides, the console and the radio in turn. It advances by itself
+// The hero's slides, the console, the app and the radio in turn. It advances by itself
 // unless paused, hovered or focused, or the visitor prefers reduced motion.
 @Component({
   selector: 'app-hero-carousel',
@@ -24,7 +24,7 @@ const RADIO_MS = 9000;
   host: {
     role: 'region',
     'aria-roledescription': 'carousel',
-    'aria-label': 'The web console and the radio',
+    'aria-label': 'The web console, the app and the radio',
     '(mouseenter)': 'hovered.set(true); sync()',
     '(mouseleave)': 'hovered.set(false); sync()',
     '(focusin)': 'focused.set(true); sync()',
@@ -36,7 +36,7 @@ const RADIO_MS = 9000;
         <div
           class="slide"
           [class.on]="i === index()"
-          [class.radio]="s.kind === 'radio'"
+          [class]="s.kind"
           role="group"
           aria-roledescription="slide"
           [attr.aria-label]="i + 1 + ' of ' + slides.length + ': ' + s.label + ', ' + s.title"
@@ -55,6 +55,15 @@ const RADIO_MS = 9000;
                 [attr.fetchpriority]="i === 0 ? 'high' : null"
               />
             </figure>
+          } @else if (s.kind === 'desktop') {
+            <figure class="browser window">
+              <div class="b-bar" aria-hidden="true"><i></i><i></i><i></i><span>Mesh Contingency</span></div>
+              <img [src]="s.shot.src" [alt]="s.shot.alt" width="880" height="620" loading="lazy" />
+            </figure>
+          } @else if (s.kind === 'app') {
+            <figure class="phone">
+              <img [src]="s.shot.src" [alt]="s.shot.alt" width="780" height="1688" loading="lazy" />
+            </figure>
           } @else if (i === index()) {
             <app-chat-demo [exchanges]="s.demo" [title]="s.device" [compact]="true" />
           }
@@ -63,8 +72,8 @@ const RADIO_MS = 9000;
     </div>
 
     <div class="caption">
-      <span class="kind" [class.radio]="slide().kind === 'radio'">
-        <app-icon [name]="slide().kind === 'radio' ? 'radio' : 'monitor'" /> {{ slide().label }}
+      <span class="kind" [class]="slide().kind">
+        <app-icon [name]="icons[slide().kind]" /> {{ slide().label }}
       </span>
       <strong>{{ slide().title }}</strong>
     </div>
@@ -78,7 +87,7 @@ const RADIO_MS = 9000;
           <button
             type="button"
             [class.on]="i === index()"
-            [class.radio]="s.kind === 'radio'"
+            [class]="s.kind"
             [attr.aria-label]="'Slide ' + (i + 1) + ': ' + s.label + ', ' + s.title"
             [attr.aria-current]="i === index() ? 'true' : null"
             (click)="go(i)"
@@ -100,6 +109,7 @@ const RADIO_MS = 9000;
 })
 export class HeroCarousel {
   protected readonly slides = HERO_SLIDES;
+  protected readonly icons = { console: 'monitor', app: 'phone', desktop: 'laptop', radio: 'radio' };
   protected readonly index = signal(0);
   protected readonly slide = computed(() => this.slides[this.index()]);
   protected readonly duration = computed(() => (this.slide().kind === 'radio' ? RADIO_MS : CONSOLE_MS));

@@ -128,7 +128,10 @@
     display: flex;
     gap: 10px;
     align-items: flex-start;
-    justify-content: space-between;
+
+    code {
+      margin-right: auto;
+    }
   }
 
   code {
@@ -182,4 +185,21 @@
   margin: 18px 0 0;
   color: var(--muted);
   font-size: 0.85rem;
+}
+
+// Marks a command the app sends.
+.in-app,
+.note-icon {
+  color: var(--sky);
+  font-size: 0.75rem;
+}
+
+.in-app {
+  display: inline-flex;
+  flex: none;
+  padding-top: 2px;
+}
+
+.note-icon {
+  vertical-align: -0.35em;
 }

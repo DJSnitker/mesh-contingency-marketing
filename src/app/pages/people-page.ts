@@ -15,10 +15,12 @@ import { Icon } from '../icon';
         <h1>Everything they need, <span>over the air</span></h1>
         <p class="lede">
           Anyone with a MeshCore radio sends the node a direct message and it replies over the mesh: no
-          phone signal, no internet on their end, no new app.
+          phone signal and no internet on their end. Type commands from any MeshCore app, or tap them in
+          the Mesh Contingency app, on an Android phone or a Windows, Mac or Linux computer.
         </p>
         <div class="cta">
           <a class="btn" [href]="wiki + '/User-Guide'" target="_blank" rel="noopener">Read the User Guide <app-icon name="arrow" /></a>
+          <a class="btn btn-ghost" routerLink="/app"><app-icon name="phone" /> The app</a>
           <a class="btn btn-ghost" routerLink="/commands">Every command</a>
         </div>
       </div>
@@ -44,17 +46,17 @@ import { Icon } from '../icon';
           <li>
             <span class="n">1</span>
             <h3>Get connected</h3>
-            <p>Send an advert from the MeshCore app and wait for the node to show up in contacts. Then send <code>help</code>.</p>
+            <p>Send an advert from your app and wait for the node to show up in contacts. Then send <code>help</code>, or pick the node on the app’s Node tab.</p>
           </li>
           <li>
             <span class="n">2</span>
             <h3>Join</h3>
-            <p>Anyone can use <code>wx</code>, <code>verse</code>, <code>ok</code> and <code>status</code>. Send <code>join</code> and an admin approves you for the rest, under your radio’s name.</p>
+            <p>Anyone can use <code>wx</code>, <code>area</code>, <code>verse</code>, <code>ok</code> and <code>status</code>. Send <code>join</code>, or press Join in the app, and an admin approves you for the rest, under your radio’s name.</p>
           </li>
           <li>
             <span class="n">3</span>
             <h3>Stay in touch</h3>
-            <p>Check in, leave messages that wait for people, and email family off the mesh. Add <code>#contingency-wx</code> and <code>#contingency-comm</code> in the app for the weather alerts and news the node posts for everyone.</p>
+            <p>Check in, leave messages that wait for people, and email family off the mesh. Add <code>#contingency-wx</code> and <code>#contingency-comm</code> in your app for the weather alerts and news the node posts for everyone.</p>
           </li>
         </ol>
       </div>
