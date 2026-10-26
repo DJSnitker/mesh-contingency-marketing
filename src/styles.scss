@@ -103,6 +103,13 @@ a {
   }
 }
 
+// The desktop app's window: its title where a browser has the address.
+.browser.window .b-bar span {
+  background: none;
+  font-family: var(--body);
+  text-align: center;
+}
+
 // A phone around a screenshot of the app.
 .phone {
   width: 100%;

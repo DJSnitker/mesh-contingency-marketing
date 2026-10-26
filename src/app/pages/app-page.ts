@@ -1,8 +1,37 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { APP_EQUIVALENTS, APP_TOUR, APP_URL } from '../content';
+import { APP_EQUIVALENTS, APP_TOUR, REPO_URL, RELEASES_URL } from '../content';
 import { Icon } from '../icon';
 import { ScreenTour } from '../screen-tour';
+
+// Where to get the app: each system's file on the release, and what to know
+// installing it (the builds aren't signed yet).
+const DOWNLOADS = [
+  {
+    icon: 'phone',
+    system: 'Android',
+    files: 'APK, Android 7 or newer',
+    note: 'Open it on the phone; Android asks once to allow installing apps from that source.',
+  },
+  {
+    icon: 'laptop',
+    system: 'Windows',
+    files: 'Installer (.exe)',
+    note: 'Windows warns about an unknown publisher: More info, then Run anyway.',
+  },
+  {
+    icon: 'laptop',
+    system: 'Mac',
+    files: 'Disk image (.dmg), Apple silicon or Intel',
+    note: 'Drag it to Applications. The first time, allow it in System Settings, Privacy & Security (Open Anyway).',
+  },
+  {
+    icon: 'terminal',
+    system: 'Linux',
+    files: 'AppImage, .deb or .pacman',
+    note: 'For a radio on USB, your user needs to be in the dialout group (uucp on Arch).',
+  },
+];
 
 @Component({
   selector: 'app-app-page',
@@ -11,13 +40,14 @@ import { ScreenTour } from '../screen-tour';
   template: `
     <header class="page-hero">
       <div class="wrap">
-        <p class="kicker">The phone app</p>
+        <p class="kicker">The app</p>
         <h1>Everything your people do, <span>a tap away</span></h1>
         <p class="lede">
-          The web console is for whoever runs the node; the phone app is for everyone else on the mesh.
-          Join, check in, read the mailbox, email out, chat and get the weather from screens instead of
-          typed commands, over Bluetooth to your own MeshCore radio. No cell signal, no internet: the
-          radio carries every request to the node.
+          The web console is for whoever runs the node; the app is for everyone else on the mesh, on an
+          Android phone or a Windows, Mac or Linux computer. Join, check in, read the mailbox, email out,
+          chat and get the weather from screens instead of typed commands, through your own MeshCore radio
+          over Bluetooth or a USB cable. No cell signal, no internet: the radio carries every request to the
+          node.
         </p>
         <div class="cta">
           <a class="btn" routerLink="/app" fragment="get">Get the app <app-icon name="arrow" /></a>
@@ -32,11 +62,36 @@ import { ScreenTour } from '../screen-tour';
           <p class="kicker">Tour the tabs</p>
           <h2>Grouped by what you’re doing</h2>
         </header>
-        <app-screen-tour [stops]="tour" device="phone" prefix="app-tour" label="App tabs" />
+        <app-screen-tour [stops]="tour" device="phone" note="demo radio, made-up data" prefix="app-tour" label="App tabs" />
       </div>
     </section>
 
     <section class="section">
+      <div class="wrap split">
+        <div>
+          <p class="kicker">On a computer</p>
+          <h2>The same app, beside your radio</h2>
+          <p>
+            For a radio on the desk, the app runs in a window on Windows, Mac and Linux: the same tabs, a
+            wider layout, and your radio over Bluetooth or plugged in with a USB cable. It remembers which
+            way the radio was connected and finds it again when it opens, and it never connects to a radio
+            you didn’t pick.
+          </p>
+          <ul class="checks">
+            <li>Bluetooth, with a box for the radio’s PIN the first time</li>
+            <li>USB: pick the radio’s port once; it reconnects to it after that</li>
+            <li>Chats and starred counties kept on that computer</li>
+          </ul>
+        </div>
+        <figure class="browser window">
+          <div class="b-bar" aria-hidden="true"><i></i><i></i><i></i><span>Mesh Contingency</span></div>
+          <img src="app/desktop-chat.png" alt="The desktop app's Chat tab: chats with people, newest first, kept on this computer" width="880" height="620" loading="lazy" />
+          <figcaption>Chat · demo radio, made-up data</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section alt">
       <div class="wrap">
         <header class="head">
           <p class="kicker">Same commands, over the air</p>
@@ -71,27 +126,41 @@ import { ScreenTour } from '../screen-tour';
       </div>
     </section>
 
-    <section id="get" class="section alt">
+    <section id="get" class="section">
       <div class="wrap">
         <header class="head">
           <p class="kicker">Get the app</p>
-          <h2>Android first, iOS next</h2>
+          <h2>Android, Windows, Mac and Linux</h2>
           <p>
-            The app is in field testing on Android 7 and newer. A signed release is on its way; until then,
-            every change builds a test APK you can install on any Android phone. iOS follows from the same
-            code.
+            Every release of Mesh Contingency attaches the app for each system. They aren’t signed with a
+            publisher’s certificate yet, so each system asks once before it opens. iOS is to come.
           </p>
         </header>
-        <ol class="steps">
+        <ul class="downloads">
+          @for (d of downloads; track d.system) {
+            <li>
+              <span class="f-icon"><app-icon [name]="d.icon" /></span>
+              <h3>{{ d.system }}</h3>
+              <small>{{ d.files }}</small>
+              <p>{{ d.note }}</p>
+            </li>
+          }
+        </ul>
+        <div class="cta">
+          <a class="btn" [href]="releases" target="_blank" rel="noopener">Download the latest release <app-icon name="arrow" /></a>
+          <a class="btn btn-ghost" [href]="appUrl" target="_blank" rel="noopener"><app-icon name="github" /> Installing, in detail</a>
+        </div>
+
+        <ol class="steps after-downloads">
           <li>
             <span class="n">1</span>
             <h3>Install it</h3>
-            <p>Download the APK from the latest build and open it on the phone; Android asks once to allow installing it.</p>
+            <p>Download your system’s file from the release and open it, past the one-time warning above.</p>
           </li>
           <li>
             <span class="n">2</span>
             <h3>Connect your radio</h3>
-            <p>On the Node tab, find your MeshCore radio and pair it. One app holds a radio at a time, so close the MeshCore app first.</p>
+            <p>On the Node tab, find your MeshCore radio over Bluetooth, or on a computer pick its USB port. One app holds a radio at a time, so close the MeshCore app first.</p>
           </li>
           <li>
             <span class="n">3</span>
@@ -99,10 +168,6 @@ import { ScreenTour } from '../screen-tour';
             <p>Choose the node from your radio’s contacts and press <strong>Join</strong>. Once an admin approves you, every tab is yours.</p>
           </li>
         </ol>
-        <div class="cta">
-          <a class="btn" [href]="appUrl" target="_blank" rel="noopener"><app-icon name="github" /> The app on GitHub</a>
-          <a class="btn btn-ghost" routerLink="/people">What your people get</a>
-        </div>
       </div>
     </section>
   `,
@@ -110,5 +175,7 @@ import { ScreenTour } from '../screen-tour';
 export class AppPage {
   protected readonly tour = APP_TOUR;
   protected readonly equivalents = APP_EQUIVALENTS;
-  protected readonly appUrl = APP_URL;
+  protected readonly downloads = DOWNLOADS;
+  protected readonly appUrl = `${REPO_URL}/blob/main/app/README.md#installers`;
+  protected readonly releases = RELEASES_URL;
 }

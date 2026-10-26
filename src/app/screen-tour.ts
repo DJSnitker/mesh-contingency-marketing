@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, Component, computed, input, linkedSignal, signal } from '@angular/core';
-import { TourStop } from './content';
+import { Frame, TourStop } from './content';
 import { Tabs } from './tabs';
 
-// A tab per job, with each page's screenshot: the web console's in a browser
-// window, the phone app's in a phone.
+// A tab per job, with each page's screenshot in its frame: a browser window,
+// a phone, or the desktop app's window. Each shot can name its own frame.
 @Component({
   selector: 'app-screen-tour',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Tabs],
   styleUrl: './screen-tour.scss',
-  host: { '[class.on-phone]': "device() === 'phone'" },
+  host: { '[class.on-phone]': "frame() === 'phone'" },
   template: `
     <app-tabs [prefix]="prefix()" [label]="label()" [tabs]="tabs()" [selected]="stopId()" (selectedChange)="pick($event)" />
     <div class="panel" [id]="prefix() + '-panel'" role="tabpanel" [attr.aria-labelledby]="prefix() + '-tab-' + stop().id">
@@ -26,27 +26,32 @@ import { Tabs } from './tabs';
           </div>
         }
       </div>
-      @if (device() === 'phone') {
-        <figure class="phone">
-          <img [src]="shot().src" [alt]="shot().alt" width="780" height="1688" loading="lazy" />
-          <figcaption>{{ shot().page }} · demo radio, made-up data</figcaption>
-        </figure>
-      } @else {
-        <figure class="browser">
-          <div class="b-bar" aria-hidden="true">
-            <i></i><i></i><i></i>
-            <span>127.0.0.1:8737</span>
-          </div>
-          <img [src]="shot().src" [alt]="shot().alt" width="1280" height="900" loading="lazy" />
-          <figcaption>{{ shot().page }} · made-up demo data</figcaption>
-        </figure>
+      @switch (frame()) {
+        @case ('phone') {
+          <figure class="phone">
+            <img [src]="shot().src" [alt]="shot().alt" width="390" height="844" loading="lazy" />
+            <figcaption>{{ shot().page }} · {{ note() }}</figcaption>
+          </figure>
+        }
+        @default {
+          <figure class="browser" [class.window]="frame() === 'window'">
+            <div class="b-bar" aria-hidden="true">
+              <i></i><i></i><i></i>
+              <span>{{ frame() === 'window' ? 'Mesh Contingency' : '127.0.0.1:8737' }}</span>
+            </div>
+            <img [src]="shot().src" [alt]="shot().alt" [attr.width]="frame() === 'window' ? 880 : 1280" [attr.height]="frame() === 'window' ? 620 : 900" loading="lazy" />
+            <figcaption>{{ shot().page }} · {{ note() }}</figcaption>
+          </figure>
+        }
       }
     </div>
   `,
 })
 export class ScreenTour {
   readonly stops = input.required<TourStop[]>();
-  readonly device = input<'browser' | 'phone'>('browser');
+  // The frame for shots that don't name their own.
+  readonly device = input<Frame>('browser');
+  readonly note = input('made-up demo data');
   readonly prefix = input.required<string>();
   readonly label = input.required<string>();
 
@@ -55,6 +60,7 @@ export class ScreenTour {
   protected readonly shotIndex = signal(0);
   protected readonly stop = computed(() => this.stops().find((t) => t.id === this.stopId())!);
   protected readonly shot = computed(() => this.stop().shots[this.shotIndex()]);
+  protected readonly frame = computed(() => this.shot().frame ?? this.device());
 
   protected pick(id: string): void {
     this.stopId.set(id);

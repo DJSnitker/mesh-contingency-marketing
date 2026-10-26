@@ -644,6 +644,45 @@ h2.small {
   }
 }
 
+// The app's downloads, a card per system
+
+.downloads {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--panel);
+  }
+
+  .f-icon {
+    margin-bottom: 14px;
+  }
+
+  small {
+    display: block;
+    margin-top: 4px;
+    color: var(--sky);
+    font-size: 0.85rem;
+  }
+
+  p {
+    margin: 10px 0 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+}
+
+.steps.after-downloads {
+  margin-top: 56px;
+}
+
 // Numbered steps
 
 .steps {

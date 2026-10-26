@@ -118,12 +118,12 @@ cat console.url</code></pre>
       <div class="wrap split">
         <div>
           <p class="kicker">Then, your people</p>
-          <h2>Hand them the phone app</h2>
+          <h2>Hand them the app</h2>
           <p>
             Your node needs nothing more for the app: it sends the same commands people type. Each person
-            installs it on an Android phone, pairs it with their own MeshCore radio, picks your node and
-            presses Join; you approve them from the console. Turn on <code>area</code> for its Weather
-            tab’s county cards.
+            installs it on an Android phone or a Windows, Mac or Linux computer, connects their own MeshCore
+            radio over Bluetooth or USB, picks your node and presses Join; you approve them from the console.
+            Turn on <code>area</code> for its Weather tab’s county cards.
           </p>
           <div class="cta">
             <a class="btn" routerLink="/app" fragment="get">Get the app <app-icon name="arrow" /></a>

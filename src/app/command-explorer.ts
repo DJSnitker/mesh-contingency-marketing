@@ -43,7 +43,7 @@ import { Icon } from './icon';
             <div class="top">
               <code>{{ c.usage }}</code>
               @if (inApp.has(c.name)) {
-                <span class="in-app" title="In the phone app"><app-icon name="phone" /><span class="sr-only">In the phone app</span></span>
+                <span class="in-app" title="In the app"><app-icon name="phone" /><span class="sr-only">In the app</span></span>
               }
               <span class="tag" [class]="c.level">{{ c.level }}</span>
             </div>
@@ -57,7 +57,7 @@ import { Icon } from './icon';
 
     <p class="note">
       Shown as in the example config. Who may run each command is set entirely by the node’s owner.
-      <app-icon name="phone" class="note-icon" /> marks the commands the phone app sends from its screens.
+      <app-icon name="phone" class="note-icon" /> marks the commands the app sends from its screens.
     </p>
   `,
 })

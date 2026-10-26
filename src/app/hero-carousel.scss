@@ -35,6 +35,10 @@
     max-width: 380px;
   }
 
+  &.desktop {
+    max-width: 520px;
+  }
+
   &.app .phone {
     max-width: 210px;
 
@@ -83,7 +87,8 @@
     color: var(--sky);
   }
 
-  &.app {
+  &.app,
+  &.desktop {
     border-color: rgb(242 245 248 / 35%);
     background: rgb(242 245 248 / 7%);
     color: var(--text);
@@ -152,7 +157,8 @@
       background: rgb(56 189 248 / 25%);
     }
 
-    &.app::before {
+    &.app::before,
+    &.desktop::before {
       background: rgb(242 245 248 / 18%);
     }
 
@@ -165,7 +171,8 @@
       background: rgb(56 189 248 / 45%);
     }
 
-    &.on.app::before {
+    &.on.app::before,
+    &.on.desktop::before {
       background: rgb(242 245 248 / 35%);
     }
   }
@@ -186,7 +193,8 @@
     background: var(--sky);
   }
 
-  .app .fill {
+  .app .fill,
+  .desktop .fill {
     background: var(--text);
   }
 }

@@ -14,7 +14,7 @@ export const routes: Routes = [
     component: HomePage,
     title: 'Mesh Contingency: a contingency link over MeshCore',
     data: {
-      description: 'Weather, check-ins, private messages and email over a MeshCore mesh radio, a web console that puts the whole node on one screen, and a phone app for everyone on the mesh.',
+      description: 'Weather, check-ins, private messages and email over a MeshCore mesh radio, a web console that puts the whole node on one screen, and an app for everyone on the mesh, on phones and computers.',
     },
   },
   {
@@ -22,15 +22,15 @@ export const routes: Routes = [
     component: ConsolePage,
     title: 'The web console · Mesh Contingency',
     data: {
-      description: "Run a Mesh Contingency node from a browser on its own computer: users, check-ins, alerts, the node's health and the radio, on one screen.",
+      description: "Run a Mesh Contingency node from a browser on its own computer: users, check-ins, the mailbox, channels and contacts, weather, the node's health and the radio, on one screen.",
     },
   },
   {
     path: 'app',
     component: AppPage,
-    title: 'The phone app · Mesh Contingency',
+    title: 'The app · Mesh Contingency',
     data: {
-      description: 'Join, check in, read the mailbox, email, chat and get the weather from your phone, over Bluetooth to your own MeshCore radio, with no internet.',
+      description: 'Join, check in, read the mailbox, email, chat and get the weather from an Android phone or a Windows, Mac or Linux computer, through your own MeshCore radio, with no internet.',
     },
   },
   {

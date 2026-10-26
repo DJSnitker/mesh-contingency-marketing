@@ -16,8 +16,8 @@ import { ScreenTour } from '../screen-tour';
         <p class="lede">
           No radio in hand, no 133-character replies. Turn the console on and open it in a browser on the
           node’s computer: the node’s health, its people and its radio, side by side. It works with no
-          internet, and it’s off until you turn it on. Your people get their own screens: the
-          <a routerLink="/app">phone app</a>.
+          internet, and it’s off until you turn it on. It’s laid out like the
+          <a routerLink="/app">app</a> your people use, so you both find things in the same places.
         </p>
         <div class="cta">
           <a class="btn" routerLink="/setup" fragment="console">Turn it on <app-icon name="arrow" /></a>
@@ -70,7 +70,7 @@ import { ScreenTour } from '../screen-tour';
         </p>
         <div class="cta">
           <a class="btn btn-ghost" routerLink="/commands"><app-icon name="list" /> All {{ commandCount }} commands</a>
-          <a class="btn btn-ghost" routerLink="/app"><app-icon name="phone" /> The phone app</a>
+          <a class="btn btn-ghost" routerLink="/app"><app-icon name="phone" /> The app</a>
         </div>
       </div>
     </section>

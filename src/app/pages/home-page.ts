@@ -22,14 +22,14 @@ export class HomePage {
       icon: 'monitor',
       kicker: 'For you, running it',
       title: 'The web console',
-      body: 'Everything an admin does, on one screen on the node’s computer: users, check-ins, alerts, the radio’s settings and contacts, and a live log.',
+      body: 'Everything an admin does, on one screen on the node’s computer: users, check-ins, the mailbox, channels and contacts, weather, the radio, and a live log. Laid out like the app.',
     },
     {
       link: '/app',
       icon: 'phone',
       kicker: 'For your people, using it',
-      title: 'The phone app',
-      body: 'Join, check in, the mailbox, email, chat, weather and scripture, from screens on their phone, over Bluetooth to their own radio.',
+      title: 'The app',
+      body: 'Join, check in, the mailbox, email, chat, weather and scripture, from screens on an Android phone or a Windows, Mac or Linux computer, through their own radio.',
     },
   ];
 
@@ -46,7 +46,7 @@ export class HomePage {
       icon: 'shield',
       kicker: 'Built for bad days',
       title: 'Security',
-      body: 'A console only the node’s computer can reach, an app with no internet permission, senders checked by full key, rate limits and sealed messages.',
+      body: 'A console only the node’s computer can reach, an app that talks only through the radio, a log that never keeps what anyone wrote, and sealed messages.',
     },
     {
       link: '/setup',

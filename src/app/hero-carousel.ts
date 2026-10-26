@@ -14,7 +14,7 @@ import { Icon } from './icon';
 const CONSOLE_MS = 6000;
 const RADIO_MS = 9000;
 
-// The hero's slides, the console, the phone app and the radio in turn. It advances by itself
+// The hero's slides, the console, the app and the radio in turn. It advances by itself
 // unless paused, hovered or focused, or the visitor prefers reduced motion.
 @Component({
   selector: 'app-hero-carousel',
@@ -24,7 +24,7 @@ const RADIO_MS = 9000;
   host: {
     role: 'region',
     'aria-roledescription': 'carousel',
-    'aria-label': 'The web console, the phone app and the radio',
+    'aria-label': 'The web console, the app and the radio',
     '(mouseenter)': 'hovered.set(true); sync()',
     '(mouseleave)': 'hovered.set(false); sync()',
     '(focusin)': 'focused.set(true); sync()',
@@ -54,6 +54,11 @@ const RADIO_MS = 9000;
                 [attr.loading]="i === 0 ? null : 'lazy'"
                 [attr.fetchpriority]="i === 0 ? 'high' : null"
               />
+            </figure>
+          } @else if (s.kind === 'desktop') {
+            <figure class="browser window">
+              <div class="b-bar" aria-hidden="true"><i></i><i></i><i></i><span>Mesh Contingency</span></div>
+              <img [src]="s.shot.src" [alt]="s.shot.alt" width="880" height="620" loading="lazy" />
             </figure>
           } @else if (s.kind === 'app') {
             <figure class="phone">
@@ -104,7 +109,7 @@ const RADIO_MS = 9000;
 })
 export class HeroCarousel {
   protected readonly slides = HERO_SLIDES;
-  protected readonly icons = { console: 'monitor', app: 'phone', radio: 'radio' };
+  protected readonly icons = { console: 'monitor', app: 'phone', desktop: 'laptop', radio: 'radio' };
   protected readonly index = signal(0);
   protected readonly slide = computed(() => this.slides[this.index()]);
   protected readonly duration = computed(() => (this.slide().kind === 'radio' ? RADIO_MS : CONSOLE_MS));

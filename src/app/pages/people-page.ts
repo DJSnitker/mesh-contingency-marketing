@@ -16,11 +16,11 @@ import { Icon } from '../icon';
         <p class="lede">
           Anyone with a MeshCore radio sends the node a direct message and it replies over the mesh: no
           phone signal and no internet on their end. Type commands from any MeshCore app, or tap them in
-          the Mesh Contingency phone app.
+          the Mesh Contingency app, on an Android phone or a Windows, Mac or Linux computer.
         </p>
         <div class="cta">
           <a class="btn" [href]="wiki + '/User-Guide'" target="_blank" rel="noopener">Read the User Guide <app-icon name="arrow" /></a>
-          <a class="btn btn-ghost" routerLink="/app"><app-icon name="phone" /> The phone app</a>
+          <a class="btn btn-ghost" routerLink="/app"><app-icon name="phone" /> The app</a>
           <a class="btn btn-ghost" routerLink="/commands">Every command</a>
         </div>
       </div>
@@ -46,7 +46,7 @@ import { Icon } from '../icon';
           <li>
             <span class="n">1</span>
             <h3>Get connected</h3>
-            <p>Send an advert from your app and wait for the node to show up in contacts. Then send <code>help</code>, or pick the node on the phone app’s Node tab.</p>
+            <p>Send an advert from your app and wait for the node to show up in contacts. Then send <code>help</code>, or pick the node on the app’s Node tab.</p>
           </li>
           <li>
             <span class="n">2</span>

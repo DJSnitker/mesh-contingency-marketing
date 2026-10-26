@@ -105,6 +105,10 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
           <rect x="6.5" y="2.5" width="11" height="19" rx="2.5" />
           <path d="M10.5 18.5h3" />
         }
+        @case ('laptop') {
+          <rect x="4" y="5" width="16" height="11" rx="1.5" />
+          <path d="M2 19h20" />
+        }
         @case ('chat') {
           <path d="M20 12a8 8 0 0 1-11.5 7.2L4 20l1-4.2A8 8 0 1 1 20 12z" />
           <path d="M8.5 12h.01M12 12h.01M15.5 12h.01" />
