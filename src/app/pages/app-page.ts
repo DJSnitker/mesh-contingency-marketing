@@ -133,7 +133,8 @@ const DOWNLOADS = [
           <h2>Android, Windows, Mac and Linux</h2>
           <p>
             Every release of Mesh Contingency attaches the app for each system. They aren’t signed with a
-            publisher’s certificate yet, so each system asks once before it opens. iOS is to come.
+            publisher’s certificate yet, so each system asks once before it opens. A new version installs over the old one and keeps your
+            chats and settings. iOS is to come.
           </p>
         </header>
         <ul class="downloads">
@@ -148,7 +149,7 @@ const DOWNLOADS = [
         </ul>
         <div class="cta">
           <a class="btn" [href]="releases" target="_blank" rel="noopener">Download the latest release <app-icon name="arrow" /></a>
-          <a class="btn btn-ghost" [href]="guide" target="_blank" rel="noopener"><app-icon name="book" /> Step by step, in the User Guide</a>
+          <a class="btn btn-ghost" [href]="guide" target="_blank" rel="noopener"><app-icon name="book" /> Step by step, in the App Guide</a>
         </div>
 
         <ol class="steps after-downloads">
@@ -176,6 +177,6 @@ export class AppPage {
   protected readonly tour = APP_TOUR;
   protected readonly equivalents = APP_EQUIVALENTS;
   protected readonly downloads = DOWNLOADS;
-  protected readonly guide = `${WIKI_URL}/User-Guide#use-the-app-phone-or-computer`;
+  protected readonly guide = `${WIKI_URL}/App-Guide#install-it`;
   protected readonly releases = RELEASES_URL;
 }

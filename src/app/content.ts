@@ -374,8 +374,14 @@ export const GUIDES: Guide[] = [
   {
     icon: 'radio',
     title: 'User Guide',
-    body: 'Getting connected, joining, checking in, leaving messages, keeping them private, sending email, by command or from the app.',
+    body: 'Getting connected, joining, checking in, leaving messages, keeping them private, sending email.',
     url: `${WIKI_URL}/User-Guide`,
+  },
+  {
+    icon: 'phone',
+    title: 'App Guide',
+    body: 'The app for phones and computers: installing it, connecting your radio, and every screen.',
+    url: `${WIKI_URL}/App-Guide`,
   },
   {
     icon: 'list',
