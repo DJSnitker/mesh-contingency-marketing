@@ -150,7 +150,7 @@ export const TOUR: TourStop[] = [
     icon: 'clock',
     label: 'Keep a record',
     title: 'Every action, and who did it',
-    body: "History lists what admins have done, newest first, with who and when, and a filter: a name, approved, alert. Whatever is done from the console shows as by console, next to what admins did over the radio.",
+    body: "History lists what admins have done, newest first, with who and when, and a filter: a name, approved, alert. Whatever is done from the console shows as by console, or by the name of the console user who did it, next to what admins did over the radio.",
     shots: [{ page: 'History', src: 'console/history.png', alt: 'The History page: admin actions, newest first, with a filter' }],
   },
 ];
@@ -368,7 +368,7 @@ export const GUIDES: Guide[] = [
   {
     icon: 'shield',
     title: 'Admin Guide',
-    body: "The web console, the radio's settings and contacts, adding and managing users, health and problem notices, backups, weather alerts, news and roll calls.",
+    body: "The web console and its console users, the radio's settings and contacts, adding and managing users, health and problem notices, backups, weather alerts, news and roll calls.",
     url: `${WIKI_URL}/Admin-Guide`,
   },
   {
