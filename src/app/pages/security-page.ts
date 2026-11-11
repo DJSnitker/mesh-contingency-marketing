@@ -26,7 +26,8 @@ import { APP_TOUR, FEATURES, SAFEGUARDS } from '../content';
           <p>
             The console is off until you turn it on. On the node’s computer it opens with the link the bot
             prints. For an operations center, you can also let console users log in from other laptops,
-            tablets and phones on the local network, over HTTPS, with their own name and password.
+            tablets and phones on the local network, over HTTPS, with their own name and password (new
+            in 0.12.0).
           </p>
           <ul class="checks">
             <li>On the node’s computer it answers only on <code>127.0.0.1</code>, and needs the key in the link the bot prints, then a cookie. Each restart makes a new key.</li>

@@ -113,7 +113,7 @@ cat console.url</code></pre>
           <li id="remote">
             <div>
               <span class="n">4</span>
-              <h3>From other computers, if you want</h3>
+              <h3>From other computers, if you want (0.12.0)</h3>
               <p>
                 Make a console user on the node’s computer, turn on the remote console and restart. Then
                 anyone with a console user logs in from a browser on the local network, at the address the
