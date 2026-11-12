@@ -22,17 +22,23 @@ import { APP_TOUR, FEATURES, SAFEGUARDS } from '../content';
       <div class="wrap split">
         <div>
           <p class="kicker">The web console</p>
-          <h2>Only on the node’s computer</h2>
+          <h2>On the node’s computer, or your own network</h2>
           <p>
-            The console is for whoever sits at the node. Other computers can’t reach it, by design, and
-            it’s off until you turn it on.
+            The console is off until you turn it on. On the node’s computer it opens with the link the bot
+            prints. For an operations center, you can also let console users log in from other laptops,
+            tablets and phones on the local network, over HTTPS, with their own name and password (new
+            in 0.12.0).
           </p>
           <ul class="checks">
-            <li>It answers only on <code>127.0.0.1</code>, so nothing on the network can reach it.</li>
-            <li>It needs the key in the link the bot prints, then a cookie. Each restart makes a new key.</li>
+            <li>On the node’s computer it answers only on <code>127.0.0.1</code>, and needs the key in the link the bot prints, then a cookie. Each restart makes a new key.</li>
+            <li>From other computers only if you set <code>remote = true</code>, and only from local network addresses: an internet address is refused before the login page, even through a port forward.</li>
+            <li>Over HTTPS, with a certificate the node makes itself and no internet needed. The bot prints its fingerprint, to check against the browser’s the first time.</li>
+            <li>Console users are separate from radios: a radio, even an admin’s, never logs in to the console, and a console user can’t command the node over the mesh. The first is made on the node’s computer.</li>
+            <li>Passwords are stored only as scrypt hashes. After 5 wrong tries for a name, or 10 from a device, it waits 15 minutes, and a burst of failed logins is sent to every admin radio.</li>
+            <li>A login ends after 30 minutes idle, 12 hours at most, or a restart; removing a console user or giving them a new password logs them out at once.</li>
             <li>It refuses other hosts and origins and sends a strict Content-Security-Policy, so other web pages can’t use it.</li>
             <li>It can’t read sealed messages or change <code>config.toml</code>, and its Mailbox shows who has mail, never what it says.</li>
-            <li>What it posts to a channel goes out as the node and is recorded in <code>history</code>, by console.</li>
+            <li>What it posts to a channel goes out as the node and is recorded in <code>history</code>, by console or by the console user’s name.</li>
             <li>The radio’s settings change only here. It reaches the radio over USB, so a setting that cuts the node off from the mesh can’t cut off the console, and a new frequency waits for the node’s name to be typed.</li>
             <li>Its fonts are bundled, so it works with no internet.</li>
           </ul>
@@ -42,6 +48,8 @@ import { APP_TOUR, FEATURES, SAFEGUARDS } from '../content';
 <pre><code>Connected to Ridgeview Relay.
 <span class="s">Web console: http://127.0.0.1:8737/?key=...</span>
 <span class="c">  (also in ~/mesh-contingency/console.url)</span>
+<span class="s">Remote console: https://node.local:8738/</span>
+<span class="c">  (certificate SHA-256 30:2B:D9:...:C1:57)</span>
 Listening for direct messages (Ctrl+C to quit)...</code></pre>
         </div>
       </div>

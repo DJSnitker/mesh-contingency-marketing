@@ -15,8 +15,9 @@ import { ScreenTour } from '../screen-tour';
         <h1>Everything an admin does, <span>on one screen</span></h1>
         <p class="lede">
           No radio in hand, no 133-character replies. Turn the console on and open it in a browser on the
-          node’s computer: the node’s health, its people and its radio, side by side. It works with no
-          internet, and it’s off until you turn it on. It’s laid out like the
+          node’s computer, or log in from any laptop, tablet or phone on the local network: the node’s
+          health, its people and its radio, side by side. It works with no internet, and it’s off until
+          you turn it on. It’s laid out like the
           <a routerLink="/app">app</a> your people use, so you both find things in the same places.
         </p>
         <div class="cta">
@@ -44,8 +45,8 @@ import { ScreenTour } from '../screen-tour';
           <p>
             The console runs the same commands an admin sends from a radio, as an admin called
             <code>console</code>: the same checks, rate limits and confirmations, and
-            <code>history</code> records them <em>by console</em>. Away from the computer, the radio in
-            your hand still does almost all of it.
+            <code>history</code> records them <em>by console</em>, or by the name of the console user
+            who logged in. Away from the network, the radio in your hand still does almost all of it.
           </p>
         </header>
         <ol class="equivalents">

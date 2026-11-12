@@ -110,6 +110,29 @@ systemctl --user restart mesh-contingency</code></pre>
 cat console.url</code></pre>
             </div>
           </li>
+          <li id="remote">
+            <div>
+              <span class="n">4</span>
+              <h3>From other computers, if you want (0.12.0)</h3>
+              <p>
+                Make a console user on the node’s computer, turn on the remote console and restart. Then
+                anyone with a console user logs in from a browser on the local network, at the address the
+                bot prints. More console users are added from the console itself.
+              </p>
+            </div>
+            <div class="terminal">
+              <div class="t-bar"><i></i><i></i><i></i><span>remote</span></div>
+<pre><code>.venv/bin/mesh-contingency-console user add sam
+
+<span class="c"># config.toml</span>
+<span class="k">[console]</span>
+enabled = true
+remote = true   <span class="c"># HTTPS on port 8738</span>
+
+<span class="c"># restart; it prints the address and fingerprint</span>
+systemctl --user restart mesh-contingency</code></pre>
+            </div>
+          </li>
         </ol>
       </div>
     </section>
