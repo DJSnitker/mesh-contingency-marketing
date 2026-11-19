@@ -6,6 +6,7 @@ import { HomePage } from './pages/home-page';
 import { PeoplePage } from './pages/people-page';
 import { SecurityPage } from './pages/security-page';
 import { SetupPage } from './pages/setup-page';
+import { WallpapersPage } from './pages/wallpapers-page';
 
 // Each page's description is used for the meta and link-preview tags.
 export const routes: Routes = [
@@ -61,6 +62,14 @@ export const routes: Routes = [
     title: 'Set up a node · Mesh Contingency',
     data: {
       description: 'Put a Mesh Contingency node on your mesh: a computer that stays on, a MeshCore companion radio, and three steps to the web console.',
+    },
+  },
+  {
+    path: 'wallpapers',
+    component: WallpapersPage,
+    title: 'Wallpapers · Mesh Contingency',
+    data: {
+      description: 'Mesh Contingency desktop wallpapers for dual monitors, ultrawides and single screens, free to download.',
     },
   },
   { path: '**', redirectTo: '' },
