@@ -50,6 +50,12 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "resources/wallpapers",
+                "output": "wallpapers",
+                "ignore": ["*.py", "*.md"]
               }
             ],
             "styles": [

@@ -16,6 +16,8 @@ npm run build      # prerendered pages in dist/mesh-contingency-marketing/browse
 - Brand colors are CSS variables at the top of `src/styles.scss`, taken from
   `docs/branding` in mesh-contingency: `#0D1117`, `#151B23`, `#FF5F1F`, `#38BDF8`, `#F2F5F8`.
 - Logos in `public/branding` are copied from that same folder; re-copy them if the branding changes.
+- Wallpapers (the `/wallpapers` page) live in `resources/wallpapers`, published under
+  `wallpapers/`; its README has the generator and the commands to redraw them.
 - Console screenshots in `public/console` come from mesh-contingency's
   `scripts/demo_console.py --screenshots DIR` (made-up data); regenerate them when the console changes.
 - App screenshots in `public/app` come from the app's demo build (`npm run demo` in

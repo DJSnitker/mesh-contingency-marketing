@@ -119,6 +119,10 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
           <circle cx="10" cy="12" r="2" />
           <circle cx="18" cy="18" r="2" />
         }
+        @case ('download') {
+          <path d="M12 4v11M7 10.5l5 5 5-5" />
+          <path d="M5 19h14" />
+        }
         @case ('monitor') {
           <rect x="2.5" y="4" width="19" height="13" rx="2" />
           <path d="M8 21h8M12 17v4" />

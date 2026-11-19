@@ -421,3 +421,29 @@ export const HERO_SLIDES: Slide[] = [
   { kind: 'radio', label: 'On the radio', title: 'Email family off the mesh', device: 'Contingency node', demo: demoOf('mail') },
   { kind: 'desktop', label: 'Desktop app', title: 'Weather for your county, at your desk', shot: { page: 'Weather', src: 'app/desktop-weather.png', alt: "The desktop app's Weather tab: two starred county cards side by side" } },
 ];
+
+// Desktop wallpapers, served from resources/wallpapers (see its README).
+export const WALLPAPERS = [
+  {
+    file: 'mesh-contingency-wallpaper-3840x1080',
+    size: '3840 × 1080',
+    fits: 'Two 1080p monitors, or a 32:9 ultrawide',
+    note: 'The logo sits whole on the left screen; the mesh and its route fill the right.',
+    svg: true,
+  },
+  {
+    file: 'mesh-contingency-wallpaper-5120x1440',
+    size: '5120 × 1440',
+    fits: 'Two 1440p monitors, or a 32:9 super-ultrawide',
+    note: 'The same design, drawn larger for sharper, bigger screens.',
+    svg: false,
+  },
+  {
+    file: 'mesh-contingency-wallpaper-1920x1080',
+    size: '1920 × 1080',
+    fits: 'One 16:9 screen',
+    note: 'Logo in the middle, with a message’s route crossing below it.',
+    svg: true,
+    single: true,
+  },
+];
