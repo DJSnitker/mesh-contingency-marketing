@@ -86,7 +86,7 @@ li code {
   margin-top: 28px;
 }
 
-// Three buttons in the home hero's narrow column.
+// The buttons in the home hero's narrow column.
 .hero-copy .cta {
   gap: 10px;
 
@@ -386,7 +386,8 @@ h1 {
   max-width: 720px;
   margin-bottom: 48px;
 
-  > p:last-child {
+  > p:last-child,
+  > h2 + p {
     margin: 18px 0 0;
     color: var(--muted);
     font-size: 1.08rem;
@@ -621,88 +622,6 @@ h2.small {
   }
 }
 
-// The two ways in, the console and the app, above the rest
-.paths.sides {
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  margin-bottom: 18px;
-
-  a {
-    padding: 34px;
-    border-color: rgb(255 95 31 / 28%);
-  }
-
-  h3 {
-    font-size: 1.7rem;
-  }
-
-  @media (max-width: 560px) {
-    grid-template-columns: 1fr;
-
-    a {
-      padding: 28px;
-    }
-  }
-}
-
-// The app's downloads, a card per system
-
-.downloads {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 14px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-
-  li {
-    padding: 24px;
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    background: var(--panel);
-  }
-
-  .f-icon {
-    margin-bottom: 14px;
-  }
-
-  small {
-    display: block;
-    margin-top: 4px;
-    color: var(--sky);
-    font-size: 0.85rem;
-  }
-
-  p {
-    margin: 10px 0 0;
-    color: var(--muted);
-    font-size: 0.9rem;
-  }
-}
-
-.steps.after-downloads {
-  margin-top: 56px;
-}
-
-// Numbered steps
-
-.steps {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-
-  @media (max-width: 860px) {
-    grid-template-columns: 1fr;
-  }
-
-  p {
-    margin: 10px 0 0;
-    color: var(--muted);
-  }
-}
-
 .n {
   display: inline-grid;
   place-items: center;
@@ -738,82 +657,6 @@ h2.small {
 
   p {
     margin: 12px 0 0;
-    color: var(--muted);
-  }
-}
-
-// Same commands
-
-.equivalents {
-  display: grid;
-  gap: 10px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-
-  li {
-    display: grid;
-    grid-template-columns: 240px auto 1fr;
-    gap: 16px;
-    align-items: center;
-    padding: 14px 18px;
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    background: var(--panel);
-
-    @media (max-width: 560px) {
-      grid-template-columns: 1fr;
-      gap: 10px;
-    }
-  }
-
-  small {
-    display: block;
-    margin-bottom: 4px;
-    color: var(--muted);
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .fake-btn {
-    display: inline-block;
-    padding: 6px 12px;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    background: var(--ink-3);
-    font-size: 0.88rem;
-    font-weight: 600;
-  }
-
-  .eq-icon {
-    color: var(--orange);
-    font-size: 0.8rem;
-
-    @media (max-width: 560px) {
-      display: none;
-    }
-  }
-
-  .radio-side {
-    display: grid;
-    gap: 4px;
-    min-width: 0;
-  }
-
-  code {
-    padding: 0;
-    background: none;
-    font-family: var(--mono);
-    font-size: 0.82rem;
-    overflow-wrap: anywhere;
-  }
-
-  .cmd {
-    color: var(--orange);
-  }
-
-  .reply {
     color: var(--muted);
   }
 }
@@ -990,6 +833,167 @@ h2.small {
     margin: 10px 0 0;
     color: var(--muted);
     font-size: 0.95rem;
+  }
+}
+
+// An alert as it shows on the channel, and what each part of it is
+
+.post-line {
+  margin: 0 0 28px;
+  padding: 18px 20px;
+  border: 1px solid rgb(255 95 31 / 35%);
+  border-radius: 14px;
+  background: var(--ink);
+
+  code {
+    font-family: var(--mono);
+    font-size: 0.92rem;
+    overflow-wrap: anywhere;
+  }
+}
+
+.spec {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--ink);
+  font-size: 0.95rem;
+
+  th,
+  td {
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th {
+    color: var(--muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  td:first-child {
+    white-space: nowrap;
+  }
+
+  td:last-child {
+    color: var(--muted);
+  }
+
+  code {
+    color: var(--orange);
+    font-family: var(--mono);
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 560px) {
+    td:first-child {
+      white-space: normal;
+    }
+
+    th,
+    td {
+      padding: 10px 12px;
+    }
+  }
+}
+
+// The admin commands, each with an example exchange
+
+.commands {
+  display: grid;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  > li {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 32px;
+    align-items: start;
+    padding: 28px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--panel);
+
+    @media (max-width: 860px) {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 560px) {
+      padding: 20px;
+    }
+  }
+
+  // Not the inline-code look that li code gets elsewhere.
+  .usage,
+  .exchange code {
+    padding: 0;
+    background: none;
+  }
+
+  .usage {
+    color: var(--orange);
+    font-family: var(--mono);
+    font-size: 1.15rem;
+    font-weight: 500;
+  }
+
+  p {
+    margin: 12px 0 0;
+    color: var(--muted);
+  }
+
+  .exchange {
+    display: grid;
+    gap: 6px;
+    min-width: 0;
+    padding: 16px 18px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--ink);
+
+    code {
+      font-family: var(--mono);
+      font-size: 0.84rem;
+      overflow-wrap: anywhere;
+    }
+
+    .node {
+      color: var(--sky);
+    }
+  }
+}
+
+// Numbered instructions in running text
+
+.numbered {
+  display: grid;
+  gap: 12px;
+  margin: 24px 0 0;
+  padding-left: 1.4em;
+  color: var(--muted);
+
+  li::marker {
+    color: var(--orange);
+    font-family: var(--display);
+    font-weight: 700;
+  }
+
+  strong {
+    color: var(--text);
   }
 }
 

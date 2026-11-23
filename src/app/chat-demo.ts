@@ -12,20 +12,19 @@ import {
 } from '@angular/core';
 import { Exchange } from './content';
 
-// A radio-app style transcript that plays its exchanges in turn and loops.
+// A radio-app style transcript, a direct message or a channel, that plays its exchanges in turn and loops.
 // With reduced motion, the whole transcript is shown at once.
 @Component({
   selector: 'app-chat-demo',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './chat-demo.scss',
-  host: { '[class.compact]': 'compact()' },
   template: `
     <div class="device">
       <div class="bar">
         <span class="dot"></span>
         <div class="who">
           <strong>{{ title() }}</strong>
-          <small>direct message · via mesh</small>
+          <small>{{ subtitle() }}</small>
         </div>
         <span class="signal" aria-hidden="true"><i></i><i></i><i></i></span>
       </div>
@@ -46,9 +45,8 @@ import { Exchange } from './content';
 })
 export class ChatDemo {
   readonly title = input('Contingency node');
+  readonly subtitle = input('direct message · via mesh');
   readonly exchanges = input.required<Exchange[]>();
-  // A shorter transcript, for the hero carousel on phones.
-  readonly compact = input(false);
 
   private readonly count = signal(0);
   protected readonly typing = signal(false);

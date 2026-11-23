@@ -1,9 +1,7 @@
 import { Routes } from '@angular/router';
-import { AppPage } from './pages/app-page';
+import { AlertsPage } from './pages/alerts-page';
 import { CommandsPage } from './pages/commands-page';
-import { ConsolePage } from './pages/console-page';
 import { HomePage } from './pages/home-page';
-import { PeoplePage } from './pages/people-page';
 import { SecurityPage } from './pages/security-page';
 import { SetupPage } from './pages/setup-page';
 import { WallpapersPage } from './pages/wallpapers-page';
@@ -13,47 +11,33 @@ export const routes: Routes = [
   {
     path: '',
     component: HomePage,
-    title: 'Mesh Contingency: a contingency link over MeshCore',
+    title: 'Mesh Contingency: weather alerts over MeshCore',
     data: {
-      description: 'Weather, check-ins, private messages and email over a MeshCore mesh radio, a web console that puts the whole node on one screen, and an app for everyone on the mesh, on phones and computers.',
+      description: 'National Weather Service alerts for your counties, posted to MeshCore’s Public channel as they’re issued, by a small bot on a Linux computer with a MeshCore radio.',
     },
   },
   {
-    path: 'console',
-    component: ConsolePage,
-    title: 'The web console · Mesh Contingency',
+    path: 'alerts',
+    component: AlertsPage,
+    title: 'Weather alerts · Mesh Contingency',
     data: {
-      description: "Run a Mesh Contingency node from a browser on its own computer: users, check-ins, the mailbox, channels and contacts, weather, the node's health and the radio, on one screen.",
-    },
-  },
-  {
-    path: 'app',
-    component: AppPage,
-    title: 'The app · Mesh Contingency',
-    data: {
-      description: 'Join, check in, read the mailbox, email, chat and get the weather from an Android phone or a Windows, Mac or Linux computer, through your own MeshCore radio, with no internet.',
-    },
-  },
-  {
-    path: 'people',
-    component: PeoplePage,
-    title: 'For your people · Mesh Contingency',
-    data: {
-      description: 'What anyone with a MeshCore radio can do with your node: weather, check-ins, messages that wait, sealed inboxes, email and scripture.',
+      description: 'What a Mesh Contingency alert looks like on the mesh, and how to choose the counties, filter by severity or event, set the weekly test and pick the channel.',
     },
   },
   {
     path: 'commands',
     component: CommandsPage,
-    title: 'Commands · Mesh Contingency',
-    data: { description: 'Every Mesh Contingency command, who can run it and what it does.' },
+    title: 'Admin commands · Mesh Contingency',
+    data: {
+      description: 'alert, testalert and help: what a Mesh Contingency node’s admins can send it from their own radios, and how to add an admin.',
+    },
   },
   {
     path: 'security',
     component: SecurityPage,
     title: 'Security · Mesh Contingency',
     data: {
-      description: 'How Mesh Contingency keeps the node, its console and people’s messages safe on a shared, noisy channel.',
+      description: 'How a Mesh Contingency node decides who its admins are, answers no one else, and keeps its log free of what anyone wrote.',
     },
   },
   {
@@ -61,7 +45,7 @@ export const routes: Routes = [
     component: SetupPage,
     title: 'Set up a node · Mesh Contingency',
     data: {
-      description: 'Put a Mesh Contingency node on your mesh: a computer that stays on, a MeshCore companion radio, and three steps to the web console.',
+      description: 'Put a Mesh Contingency node on your mesh: a Linux computer, a MeshCore radio on USB, and one command that installs it without sudo.',
     },
   },
   {
@@ -72,5 +56,9 @@ export const routes: Routes = [
       description: 'Mesh Contingency desktop wallpapers for dual monitors, ultrawides and single screens, free to download.',
     },
   },
+  // Pages from before 1.0, kept so old links still land somewhere useful.
+  { path: 'people', redirectTo: 'alerts' },
+  { path: 'console', redirectTo: '' },
+  { path: 'app', redirectTo: '' },
   { path: '**', redirectTo: '' },
 ];

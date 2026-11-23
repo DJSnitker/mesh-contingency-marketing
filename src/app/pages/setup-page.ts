@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { APP_TOUR, GUIDES, REPO_URL, WIKI_URL } from '../content';
+import { GUIDES, INSTALL_URL, WIKI_URL } from '../content';
 import { Icon } from '../icon';
 
 @Component({
   selector: 'app-setup-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Icon, RouterLink],
+  imports: [Icon],
   template: `
     <header class="page-hero">
       <div class="wrap split">
@@ -14,23 +13,22 @@ import { Icon } from '../icon';
           <p class="kicker">Run your own node</p>
           <h1>Set up <span>a node</span></h1>
           <p class="lede">
-            All it takes is a computer that stays on and a MeshCore companion radio on USB serial. The
-            Bible is bundled, so <code>verse</code> works offline; weather uses the National Weather
-            Service with no API keys.
+            A Linux computer, a MeshCore radio on its USB port, and about 15 minutes. One command installs
+            everything as your normal account, and another checks it. Weather comes from the National
+            Weather Service, with no API keys.
           </p>
           <div class="cta">
-            <a class="btn" [href]="repo + '#setup'" target="_blank" rel="noopener">Full setup instructions <app-icon name="arrow" /></a>
-            <a class="btn btn-ghost" [href]="wiki + '/Running-as-a-systemd-Service-on-Linux'" target="_blank" rel="noopener">Run as a service</a>
+            <a class="btn" [href]="wiki + '/Set-Up-a-Node'" target="_blank" rel="noopener">Set Up a Node in the wiki <app-icon name="arrow" /></a>
+            <a class="btn btn-ghost" [href]="wiki + '/Troubleshooting'" target="_blank" rel="noopener">Troubleshooting</a>
           </div>
         </div>
         <div class="needs">
           <h2 class="small">You’ll need</h2>
           <ul class="checks">
-            <li>Python 3.11 or newer</li>
-            <li>A MeshCore companion radio on USB serial</li>
-            <li>The <code>mail</code> command, for email</li>
-            <li>Internet on the node for <code>wx</code>, weather alerts and email</li>
-            <li>For the console: Node.js 22.22+ or 24.15+, only to build it</li>
+            <li>A Linux computer with systemd, on all the time, with the internet (Debian, Ubuntu, Raspberry Pi OS, Fedora, Arch…)</li>
+            <li>git and Python 3.11 or newer; the installer says how to get them</li>
+            <li>A MeshCore radio with the USB companion firmware and the Public channel, for the node</li>
+            <li>Your own radio with the MeshCore app, to be the admin’s</li>
           </ul>
         </div>
       </div>
@@ -39,124 +37,120 @@ import { Icon } from '../icon';
     <section class="section alt">
       <div class="wrap">
         <ol class="setup-list">
-          <li>
+          <li id="install">
             <div>
               <span class="n">1</span>
-              <h3>Install the bot</h3>
+              <h3>Install it</h3>
               <p>
-                Install it in a virtual environment, copy the example config and users files, and keep
-                them private. Then choose who may run each command, and which counties to watch for NWS
-                alerts.
+                Run it as the user the node will run as, <strong>not with sudo</strong>. It asks two
+                questions, your counties and your radio’s public key (Enter skips it), then puts the latest
+                release in <code>~/mesh-contingency</code>, writes <code>config.toml</code> with your answers,
+                and sets up a systemd user service that starts the node at boot.
               </p>
+              <p>It ends with a numbered list of what’s left, such as joining the radio’s group.</p>
             </div>
             <div class="terminal">
               <div class="t-bar"><i></i><i></i><i></i><span>install</span></div>
-<pre><code>python3 -m venv .venv
-.venv/bin/pip install -e .
-cp config.example.toml config.toml
-cp users.example.toml users.toml
-chmod 600 config.toml users.toml
+<pre><code>curl -fsSL {{ installUrl }} | bash
 
-<span class="c"># config.toml: who can run what</span>
-<span class="k">[commands]</span>
-wx      = {{ '{' }} permission = <span class="s">"public"</span> {{ '}' }}
-area    = {{ '{' }} permission = <span class="s">"public"</span> {{ '}' }}  <span class="c"># the app's Weather tab</span>
-msg     = {{ '{' }} permission = <span class="s">"user"</span> {{ '}' }}
-approve = {{ '{' }} permission = <span class="s">"admin"</span> {{ '}' }}
+Counties for weather alerts, e.g. Taylor, TX; Jones, TX: <span class="s">Taylor, TX; Jones, TX</span>
+Your radio's public key, to be its admin (Enter to skip): <span class="s">a1b2c3...</span>
 
-<span class="c"># post new NWS alerts for these counties</span>
-<span class="k">[alerts]</span>
-counties = [<span class="s">"Taylor, TX"</span>, <span class="s">"Jones, TX"</span>]</code></pre>
+<span class="c"># answer without being asked:</span>
+curl -fsSL .../install.sh | bash -s -- \
+  --counties <span class="s">"Taylor, TX; Jones, TX"</span> --admin-key KEY</code></pre>
             </div>
           </li>
-          <li id="console">
+          <li id="radio">
             <div>
               <span class="n">2</span>
-              <h3>Turn on the console</h3>
+              <h3>Let your account use the radio</h3>
               <p>
-                Install the console’s extra and build its app, once per update. Node.js is only needed for
-                the build; the bot doesn’t need it to run. Then turn it on and restart the bot, which prints
-                the console’s link.
+                The radio is a serial device only one group may open, usually <code>dialout</code>
+                (<code>uucp</code> on Arch). With it plugged in, the installer tries the port itself and says
+                what’s in the way. A new group only applies to new logins, so log out and back in.
               </p>
             </div>
             <div class="terminal">
-              <div class="t-bar"><i></i><i></i><i></i><span>console</span></div>
-<pre><code>.venv/bin/pip install -e <span class="s">".[console]"</span>
-cd console &amp;&amp; npm ci &amp;&amp; npm run build &amp;&amp; cd ..
-
-<span class="c"># config.toml</span>
-<span class="k">[console]</span>
-enabled = true
-
-<span class="c"># restart the bot</span>
-systemctl --user restart mesh-contingency</code></pre>
+              <div class="t-bar"><i></i><i></i><i></i><span>once, with the computer's admin</span></div>
+<pre><code><span class="c"># the installer prints the ones you need:</span>
+sudo usermod -aG dialout "$USER"     <span class="c"># then log out and in</span>
+sudo loginctl enable-linger "$USER"  <span class="c"># if it can't itself</span>
+sudo apt-get install git python3 python3-venv</code></pre>
             </div>
           </li>
-          <li>
+          <li id="check">
             <div>
               <span class="n">3</span>
-              <h3>Open it</h3>
+              <h3>Check it</h3>
               <p>
-                On the node’s computer, one command checks the bot answers and opens the console in your
-                browser. If it can’t, it says why: the console is off, the bot isn’t running, or the link
-                is old.
+                It reads <code>config.toml</code> as the bot does, and before starting anything stops on no
+                radio, a port you can’t open, a mistake in the config, or no counties. Then it starts the
+                service and waits for the bot to listen, and stops if the radio has no Public channel or the
+                alert watcher didn’t start.
               </p>
             </div>
             <div class="terminal">
-              <div class="t-bar"><i></i><i></i><i></i><span>open</span></div>
-<pre><code>.venv/bin/mesh-contingency-console
+              <div class="t-bar"><i></i><i></i><i></i><span>check</span></div>
+<pre><code>~/mesh-contingency/install.sh --check
 
-<span class="c"># or open the link yourself</span>
-cat console.url</code></pre>
+<span class="s">Running, with no warnings.</span>
+The node is listening. Next: send it help from an
+admin radio, and test a reboot.</code></pre>
             </div>
           </li>
-          <li id="remote">
+          <li id="meet">
             <div>
               <span class="n">4</span>
-              <h3>From other computers, if you want (0.12.0)</h3>
+              <h3>Meet it from your radio</h3>
               <p>
-                Make a console user on the node’s computer, turn on the remote console and restart. Then
-                anyone with a console user logs in from a browser on the local network, at the address the
-                bot prints. More console users are added from the console itself.
+                Two radios can only message each other once each has heard the other’s advert. Advert from
+                your radio, have the node advert, then send it <code>help</code>. Send <code>testalert</code>
+                last: the test message and the counties watched should show on Public. Set
+                <code>[advert] every_hours = 12</code> to have it advert by itself.
               </p>
             </div>
             <div class="terminal">
-              <div class="t-bar"><i></i><i></i><i></i><span>remote</span></div>
-<pre><code>.venv/bin/mesh-contingency-console user add sam
+              <div class="t-bar"><i></i><i></i><i></i><span>advert now</span></div>
+<pre><code>systemctl --user kill --kill-whom=main -s USR1 mesh-contingency
 
-<span class="c"># config.toml</span>
-<span class="k">[console]</span>
-enabled = true
-remote = true   <span class="c"># HTTPS on port 8738</span>
-
-<span class="c"># restart; it prints the address and fingerprint</span>
-systemctl --user restart mesh-contingency</code></pre>
+<span class="c"># from your radio, by direct message</span>
+help
+<span class="s">→ commands: alert, help, testalert. Send help &lt;command&gt; for usage</span>
+testalert
+<span class="s">→ testalert: posted to Public; next weekly test Wed 5:00PM CST</span></code></pre>
             </div>
           </li>
         </ol>
       </div>
     </section>
 
-    <section class="section">
+    <section id="day-to-day" class="section">
       <div class="wrap split">
         <div>
-          <p class="kicker">Then, your people</p>
-          <h2>Hand them the app</h2>
-          <p>
-            Your node needs nothing more for the app: it sends the same commands people type. Each person
-            installs it on an Android phone or a Windows, Mac or Linux computer, connects their own MeshCore
-            radio over Bluetooth or USB, picks your node and presses Join; you approve them from the console.
-            Turn on <code>area</code> for its Weather tab’s county cards.
-          </p>
-          <div class="cta">
-            <a class="btn" routerLink="/app" fragment="get">Get the app <app-icon name="arrow" /></a>
-            <a class="btn btn-ghost" routerLink="/app"><app-icon name="phone" /> Tour the app</a>
-          </div>
+          <p class="kicker">Day to day</p>
+          <h2>Update, watch, remove</h2>
+          <ul class="checks">
+            <li><strong>Update</strong> by running the install command again. It moves to the newest release, reinstalls and restarts the service, and never asks questions or touches <code>config.toml</code> or saved data.</li>
+            <li><strong>From before 1.0</strong>, a config still starts: settings that no longer exist are ignored with one warning, and admins in an old <code>users.toml</code> are still read, with a warning to move them to <code>[admins]</code>.</li>
+            <li><strong>The log</strong> has everything the bot does, with names and command names but never anyone’s text.</li>
+            <li><strong>Remove it</strong> by disabling the service and deleting the node folder. If an older version put the radio in manual-add mode, turn that off in the MeshCore app.</li>
+          </ul>
         </div>
-        <figure class="phone">
-          <img [src]="nodeShot.src" [alt]="nodeShot.alt" width="780" height="1688" loading="lazy" />
-          <figcaption>Node · demo radio, made-up data</figcaption>
-        </figure>
+        <div class="terminal">
+          <div class="t-bar"><i></i><i></i><i></i><span>day to day</span></div>
+<pre><code><span class="c"># the log, live</span>
+journalctl --user -u mesh-contingency -f
+
+<span class="c"># after changing config.toml</span>
+systemctl --user restart mesh-contingency
+
+<span class="c"># remove it</span>
+systemctl --user disable --now mesh-contingency
+rm ~/.config/systemd/user/mesh-contingency.service
+systemctl --user daemon-reload
+rm -rf ~/mesh-contingency   <span class="c"># copy config.toml first</span></code></pre>
+        </div>
       </div>
     </section>
 
@@ -182,8 +176,7 @@ systemctl --user restart mesh-contingency</code></pre>
   `,
 })
 export class SetupPage {
-  protected readonly repo = REPO_URL;
   protected readonly wiki = WIKI_URL;
   protected readonly guides = GUIDES;
-  protected readonly nodeShot = APP_TOUR[0].shots[0];
+  protected readonly installUrl = INSTALL_URL;
 }
