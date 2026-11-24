@@ -19,7 +19,7 @@
 
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <p class="eyebrow"><span class="pulse"></span> New in 1.0.0: <a routerLink="/alerts">one job, weather alerts on Public</a></p>
+      <p class="eyebrow"><span class="pulse"></span> New in 1.0.0: <a routerLink="/alerts">weather alerts on the Public channel</a></p>
       <h1>Weather alerts. <span>Over the mesh.</span></h1>
       <p class="lede">
         Mesh Contingency is a small bot for a <a [href]="meshcore" target="_blank" rel="noopener">MeshCore</a>
@@ -97,36 +97,6 @@
 </section>
 
 <section class="section alt">
-  <div class="wrap split">
-    <div>
-      <p class="kicker">Earlier versions</p>
-      <h2>Cut down to one job</h2>
-      <p>
-        Up to 0.12.0, Mesh Contingency also had users, a mailbox, email, check-ins, weather on request,
-        a web console, and phone and desktop apps. Version 1.0 keeps only the weather alerts, and their
-        three admin commands. The old system is kept on the git tag <code>archive/full-system</code>,
-        and the phone app’s APK and the desktop installers stay on the 0.12.0 and earlier releases.
-      </p>
-      <div class="cta">
-        <a class="btn btn-ghost" [href]="releases" target="_blank" rel="noopener">Earlier releases <app-icon name="arrow" /></a>
-        <a class="btn btn-ghost" [href]="changelog" target="_blank" rel="noopener">What changed in 1.0</a>
-      </div>
-    </div>
-    <div class="terminal" aria-label="A config from before 1.0, starting under 1.0">
-      <div class="t-bar"><i></i><i></i><i></i><span>update</span></div>
-<pre><code><span class="c"># run the install command again: it moves to 1.0,</span>
-<span class="c"># asks nothing, and keeps config.toml and your data</span>
-curl -fsSL .../install.sh | bash
-
-<span class="c"># a 0.x config still starts:</span>
-<span class="c"># settings that no longer exist are ignored,</span>
-<span class="c"># with one warning naming them, and admins in an</span>
-<span class="c"># old users.toml are still read</span></code></pre>
-    </div>
-  </div>
-</section>
-
-<section class="section">
   <div class="wrap">
     <header class="head">
       <p class="kicker">Documentation</p>

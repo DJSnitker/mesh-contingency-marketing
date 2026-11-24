@@ -132,9 +132,8 @@ testalert
           <h2>Update, watch, remove</h2>
           <ul class="checks">
             <li><strong>Update</strong> by running the install command again. It moves to the newest release, reinstalls and restarts the service, and never asks questions or touches <code>config.toml</code> or saved data.</li>
-            <li><strong>From before 1.0</strong>, a config still starts: settings that no longer exist are ignored with one warning, and admins in an old <code>users.toml</code> are still read, with a warning to move them to <code>[admins]</code>.</li>
             <li><strong>The log</strong> has everything the bot does, with names and command names but never anyone’s text.</li>
-            <li><strong>Remove it</strong> by disabling the service and deleting the node folder. If an older version put the radio in manual-add mode, turn that off in the MeshCore app.</li>
+            <li><strong>Remove it</strong> by disabling the service and deleting the node folder.</li>
           </ul>
         </div>
         <div class="terminal">

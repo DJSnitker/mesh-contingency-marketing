@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ChatDemo } from '../chat-demo';
-import { CHANNEL_DEMO, GUIDES, MESHCORE_URL, RELEASES_URL, REPO_URL } from '../content';
+import { CHANNEL_DEMO, GUIDES, MESHCORE_URL } from '../content';
 import { Icon } from '../icon';
 
 @Component({
@@ -12,8 +12,6 @@ import { Icon } from '../icon';
 })
 export class HomePage {
   protected readonly meshcore = MESHCORE_URL;
-  protected readonly releases = RELEASES_URL;
-  protected readonly changelog = `${REPO_URL}/blob/main/CHANGELOG.md`;
   protected readonly guides = GUIDES;
   protected readonly channel = CHANNEL_DEMO;
 

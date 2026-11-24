@@ -4,7 +4,6 @@ export const REPO_URL = 'https://github.com/DJSnitker/mesh-contingency';
 export const WIKI_URL = `${REPO_URL}/wiki`;
 export const MESHCORE_URL = 'https://github.com/meshcore-dev/MeshCore';
 export const CONTACT_EMAIL = 'information@meshcontingency.com';
-export const RELEASES_URL = `${REPO_URL}/releases`;
 export const INSTALL_URL = 'https://raw.githubusercontent.com/DJSnitker/mesh-contingency/main/install.sh';
 
 export interface Exchange {
