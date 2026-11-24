@@ -19,26 +19,25 @@
 
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <p class="eyebrow"><span class="pulse"></span> New in 0.12.0: <a routerLink="/security" fragment="console">the console from other computers</a></p>
-      <h1>Run the node. <span>Keep everyone connected.</span></h1>
+      <p class="eyebrow"><span class="pulse"></span> New in 1.0.0: <a routerLink="/alerts">weather alerts on the Public channel</a></p>
+      <h1>Weather alerts. <span>Over the mesh.</span></h1>
       <p class="lede">
-        Mesh Contingency turns a <a [href]="meshcore" target="_blank" rel="noopener">MeshCore</a> radio
-        into a lifeline: weather, check-ins, private messages and email, from nothing but a mesh radio.
-        Its web console puts the whole node on one screen for you; its app puts every command a tap
-        away for your people, on their phone or computer.
+        Mesh Contingency is a small bot for a <a [href]="meshcore" target="_blank" rel="noopener">MeshCore</a>
+        radio on a Linux computer. It watches the National Weather Service for the counties you list
+        and posts each new alert to MeshCore’s Public channel, once, as it’s issued. Nobody joins
+        anything or installs an app: every radio in range already has Public.
       </p>
       <div class="cta">
         <a class="btn" routerLink="/setup">Set up a node <app-icon name="arrow" /></a>
-        <a class="btn btn-ghost" routerLink="/console"><app-icon name="monitor" /> The console</a>
-        <a class="btn btn-ghost" routerLink="/app"><app-icon name="phone" /> The app</a>
+        <a class="btn btn-ghost" routerLink="/alerts"><app-icon name="weather" /> How the alerts work</a>
       </div>
       <ul class="facts">
-        <li><strong>2</strong> apps for the node</li>
-        <li><strong>{{ commandCount }}</strong> radio commands</li>
-        <li><strong>0</strong> cell towers</li>
+        <li><strong>1</strong> command to install</li>
+        <li><strong>10</strong> minutes between checks</li>
+        <li><strong>0</strong> apps for listeners</li>
       </ul>
     </div>
-    <app-hero-carousel />
+    <app-chat-demo [exchanges]="channel" title="Public" subtitle="channel · every radio in range" />
   </div>
 </section>
 
@@ -46,31 +45,31 @@
   <div class="wrap">
     <header class="head">
       <p class="kicker">How it works</p>
-      <h2>One node bridges the mesh to the world</h2>
+      <h2>From the Weather Service to every radio</h2>
       <p>
-        A small computer with a MeshCore companion radio on USB runs the node. It answers direct
-        messages over the mesh and, when the internet is reachable from the node, fetches weather and
-        sends email for people who can’t. You run it from the web console, or from your own radio; your
-        people reach it from the app or any MeshCore app.
+        A computer with a MeshCore companion radio on USB runs the node. Every 10 minutes it asks
+        api.weather.gov about your counties, and posts what’s new to the Public channel, where any
+        radio in range reads it, even ones with no internet and no phone signal. An alert several
+        counties share is posted once, and a restart never repeats one.
       </p>
     </header>
-    <div class="flow" role="img" aria-label="People's radios send a message across mesh repeaters to the node, which reaches weather and email services and replies back over the mesh.">
+    <div class="flow" role="img" aria-label="The National Weather Service's alerts reach the node over the internet, and the node posts them over the mesh to the Public channel, where every radio in range reads them.">
       <div class="station">
-        <span class="s-icon"><app-icon name="phone" /></span>
-        <strong>Their radio</strong>
-        <small>The app on a phone or computer, or any MeshCore app</small>
+        <span class="s-icon"><app-icon name="weather" /></span>
+        <strong>The Weather Service</strong>
+        <small>Alerts for your counties</small>
       </div>
-      <div class="hop"><span></span><small>mesh hops</small></div>
+      <div class="hop sky"><span></span><small>internet</small></div>
       <div class="station core">
         <img src="branding/mesh-contingency-mark.svg" alt="" width="54" height="59" />
         <strong>Your node</strong>
-        <small>Radio + computer + console</small>
+        <small>Linux computer + MeshCore radio</small>
       </div>
-      <div class="hop sky"><span></span><small>when available</small></div>
+      <div class="hop"><span></span><small>mesh hops</small></div>
       <div class="station">
-        <span class="s-icon"><app-icon name="mail" /></span>
-        <strong>The world</strong>
-        <small>Weather · Email</small>
+        <span class="s-icon"><app-icon name="radio" /></span>
+        <strong>Every radio</strong>
+        <small>On the Public channel, in range</small>
       </div>
     </div>
   </div>
@@ -80,20 +79,8 @@
   <div class="wrap">
     <header class="head">
       <p class="kicker">Explore</p>
-      <h2>One node, two sides</h2>
+      <h2>Everything there is to it</h2>
     </header>
-    <ul class="paths sides">
-      @for (p of sides; track p.link) {
-        <li>
-          <a [routerLink]="p.link">
-            <span class="f-icon"><app-icon [name]="p.icon" /></span>
-            <small>{{ p.kicker }}</small>
-            <h3>{{ p.title }} <app-icon name="arrow" /></h3>
-            <p>{{ p.body }}</p>
-          </a>
-        </li>
-      }
-    </ul>
     <ul class="paths">
       @for (p of paths; track p.link) {
         <li>

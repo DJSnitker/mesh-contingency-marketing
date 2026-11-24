@@ -31,7 +31,7 @@
   <section class="closing">
     <div class="wrap">
       <img src="branding/mesh-contingency-lockup.svg" alt="Mesh Contingency" width="560" height="199" />
-      <p>A contingency link over MeshCore.</p>
+      <p>Weather alerts over MeshCore.</p>
       <div class="cta">
         <a class="btn" routerLink="/setup">Set up a node <app-icon name="arrow" /></a>
         <a class="btn btn-ghost" [href]="repo" target="_blank" rel="noopener"><app-icon name="github" /> GitHub</a>
@@ -51,7 +51,6 @@
       @for (item of nav; track item.link) {
         <a [routerLink]="item.link">{{ item.label }}</a>
       }
-      <a routerLink="/wallpapers">Wallpapers</a>
       <a [href]="wiki" target="_blank" rel="noopener">Wiki</a>
       <a [href]="repo" target="_blank" rel="noopener">GitHub</a>
       <a [href]="'mailto:' + email">Contact</a>
