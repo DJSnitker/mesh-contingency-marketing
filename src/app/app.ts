@@ -27,6 +27,7 @@ export class App {
     { link: '/commands', label: 'Commands' },
     { link: '/security', label: 'Security' },
     { link: '/setup', label: 'Set up' },
+    { link: '/wallpapers', label: 'Wallpapers' },
   ];
 
   protected readonly menuOpen = signal(false);
